@@ -1,0 +1,2290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#1B1B3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ReverSing!">
+<title>ReverSing!</title>
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%20%22ReverSing%21%22%2C%20%22short_name%22%3A%20%22ReverSing%21%22%2C%20%22description%22%3A%20%22Sing-it-backwards%20party%20game%22%2C%20%22start_url%22%3A%20%22.%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22background_color%22%3A%20%22%2314132C%22%2C%20%22theme_color%22%3A%20%22%231B1B3A%22%2C%20%22orientation%22%3A%20%22portrait%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22data%3Aimage/svg%2Bxml%2C%253Csvg%2520xmlns%253D%2522http%253A//www.w3.org/2000/svg%2522%2520viewBox%253D%25220%25200%2520192%2520192%2522%253E%253Crect%2520width%253D%2522192%2522%2520height%253D%2522192%2522%2520rx%253D%252236%2522%2520fill%253D%2522%25231B1B3A%2522/%253E%253Ccircle%2520cx%253D%252270%2522%2520cy%253D%252296%2522%2520r%253D%252234%2522%2520fill%253D%2522none%2522%2520stroke%253D%2522%2523C6FF3D%2522%2520stroke-width%253D%252210%2522/%253E%253Ccircle%2520cx%253D%2522122%2522%2520cy%253D%252296%2522%2520r%253D%252234%2522%2520fill%253D%2522none%2522%2520stroke%253D%2522%2523FF5D73%2522%2520stroke-width%253D%252210%2522/%253E%253Ccircle%2520cx%253D%252270%2522%2520cy%253D%252296%2522%2520r%253D%252210%2522%2520fill%253D%2522%2523C6FF3D%2522/%253E%253Ccircle%2520cx%253D%2522122%2522%2520cy%253D%252296%2522%2520r%253D%252210%2522%2520fill%253D%2522%2523FF5D73%2522/%253E%253C/svg%253E%22%2C%20%22sizes%22%3A%20%22any%22%2C%20%22type%22%3A%20%22image/svg%2Bxml%22%2C%20%22purpose%22%3A%20%22any%22%7D%2C%20%7B%22src%22%3A%20%22data%3Aimage/svg%2Bxml%2C%253Csvg%2520xmlns%253D%2522http%253A//www.w3.org/2000/svg%2522%2520viewBox%253D%25220%25200%2520192%2520192%2522%253E%253Crect%2520width%253D%2522192%2522%2520height%253D%2522192%2522%2520rx%253D%252236%2522%2520fill%253D%2522%25231B1B3A%2522/%253E%253Ccircle%2520cx%253D%252270%2522%2520cy%253D%252296%2522%2520r%253D%252234%2522%2520fill%253D%2522none%2522%2520stroke%253D%2522%2523C6FF3D%2522%2520stroke-width%253D%252210%2522/%253E%253Ccircle%2520cx%253D%2522122%2522%2520cy%253D%252296%2522%2520r%253D%252234%2522%2520fill%253D%2522none%2522%2520stroke%253D%2522%2523FF5D73%2522%2520stroke-width%253D%252210%2522/%253E%253Ccircle%2520cx%253D%252270%2522%2520cy%253D%252296%2522%2520r%253D%252210%2522%2520fill%253D%2522%2523C6FF3D%2522/%253E%253Ccircle%2520cx%253D%2522122%2522%2520cy%253D%252296%2522%2520r%253D%252210%2522%2520fill%253D%2522%2523FF5D73%2522/%253E%253C/svg%253E%22%2C%20%22sizes%22%3A%20%22any%22%2C%20%22type%22%3A%20%22image/svg%2Bxml%22%2C%20%22purpose%22%3A%20%22maskable%22%7D%5D%7D">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20192%20192%22%3E%3Crect%20width%3D%22192%22%20height%3D%22192%22%20rx%3D%2236%22%20fill%3D%22%231B1B3A%22/%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2296%22%20r%3D%2234%22%20fill%3D%22none%22%20stroke%3D%22%23C6FF3D%22%20stroke-width%3D%2210%22/%3E%3Ccircle%20cx%3D%22122%22%20cy%3D%2296%22%20r%3D%2234%22%20fill%3D%22none%22%20stroke%3D%22%23FF5D73%22%20stroke-width%3D%2210%22/%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2296%22%20r%3D%2210%22%20fill%3D%22%23C6FF3D%22/%3E%3Ccircle%20cx%3D%22122%22%20cy%3D%2296%22%20r%3D%2210%22%20fill%3D%22%23FF5D73%22/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20192%20192%22%3E%3Crect%20width%3D%22192%22%20height%3D%22192%22%20rx%3D%2236%22%20fill%3D%22%231B1B3A%22/%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2296%22%20r%3D%2234%22%20fill%3D%22none%22%20stroke%3D%22%23C6FF3D%22%20stroke-width%3D%2210%22/%3E%3Ccircle%20cx%3D%22122%22%20cy%3D%2296%22%20r%3D%2234%22%20fill%3D%22none%22%20stroke%3D%22%23FF5D73%22%20stroke-width%3D%2210%22/%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2296%22%20r%3D%2210%22%20fill%3D%22%23C6FF3D%22/%3E%3Ccircle%20cx%3D%22122%22%20cy%3D%2296%22%20r%3D%2210%22%20fill%3D%22%23FF5D73%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+  /* ===================== TOKENS ===================== */
+  :root{
+    --ink-navy:#1B1B3A;
+    --tape-purple:#4A3F8C;
+    --tape-purple-soft:#5c4fb0;
+    --coral:#FF5D73;
+    --coral-dim:#c94b5d;
+    --lime:#C6FF3D;
+    --amber:#FFB238;
+    --cream:#F5F1E8;
+    --bg:#14132C;
+    --surface:#1F1E42;
+    --surface-2:#2A2960;
+    --text:#F5F1E8;
+    --text-dim:#B8B5D9;
+    --border:rgba(245,241,232,0.12);
+    --shadow: 0 10px 30px rgba(0,0,0,0.35);
+    --radius-lg:22px;
+    --radius-md:14px;
+    --radius-sm:8px;
+    --font-display:'Archivo Black', sans-serif;
+    --font-body:'Space Grotesk', sans-serif;
+    --font-mono:'Space Mono', monospace;
+    --font-marker:'Permanent Marker', cursive;
+  }
+  [data-theme="light"]{
+    --bg:#F5F1E8;
+    --surface:#FFFFFF;
+    --surface-2:#EFEAE0;
+    --text:#1B1B3A;
+    --text-dim:#5b5880;
+    --border:rgba(27,27,58,0.12);
+    --shadow: 0 10px 24px rgba(27,27,58,0.10);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    height:100vh;
+    height:100dvh;
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+    transition:background .25s ease,color .25s ease;
+  }
+  #app{
+    max-width:480px;
+    margin:0 auto;
+    height:100vh;
+    height:100dvh;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    background:
+      radial-gradient(circle at 15% -10%, rgba(255,93,115,0.12), transparent 45%),
+      radial-gradient(circle at 100% 0%, rgba(198,255,61,0.08), transparent 40%),
+      var(--bg);
+  }
+
+  /* ===================== TOP BAR ===================== */
+  #topbar{
+    padding:14px 18px 10px;
+    flex-shrink:0;
+  }
+  .brand-row{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:6px;
+  }
+  .brand{
+    font-family:var(--font-marker);
+    font-size:22px;
+    letter-spacing:0.5px;
+    color:var(--coral);
+    display:flex;align-items:center;gap:8px;
+    transform:rotate(-6deg);
+    transform-origin:left center;
+  }
+  .icon-btn{
+    background:var(--surface);
+    border:1px solid var(--border);
+    color:var(--text);
+    width:34px;height:34px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:15px;
+    cursor:pointer;
+  }
+  .icon-btn:active{ transform:scale(0.92); }
+
+  /* tape counter timer */
+  #timer-wrap{
+    display:flex;align-items:center;gap:10px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    padding:8px 12px;
+    box-shadow:var(--shadow);
+  }
+  #timer-bar-track{
+    flex:1;height:8px;border-radius:5px;
+    background:var(--surface-2);
+    overflow:hidden;
+  }
+  #timer-bar-fill{
+    height:100%;width:100%;
+    background:linear-gradient(90deg,var(--lime),var(--coral));
+    border-radius:5px;
+    transition:width 1s linear, background .3s ease;
+  }
+  #timer-readout{
+    font-family:var(--font-mono);
+    font-weight:700;
+    font-size:15px;
+    background:var(--ink-navy);
+    color:var(--lime);
+    padding:4px 8px;
+    border-radius:6px;
+    min-width:54px;
+    text-align:center;
+    letter-spacing:1px;
+  }
+  [data-theme="light"] #timer-readout{ background:#1B1B3A; color:var(--lime); }
+  #timer-wrap.urgent #timer-readout{ color:var(--coral); }
+  #timer-wrap.urgent #timer-bar-fill{ background:var(--coral); }
+
+  .team-pill{
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:12.5px;
+    color:var(--text-dim);
+    margin-top:8px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .team-pill b{ color:var(--coral); font-weight:700; }
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--lime);}
+
+  /* ===================== TABS / MAIN ===================== */
+  main{
+    flex:1;
+    overflow-y:auto;
+    padding:6px 18px 90px;
+  }
+  .tab-panel{ display:none; animation:fadein .18s ease; }
+  .tab-panel.active{ display:block; }
+  @keyframes fadein{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
+
+  /* ---- cassette widget (signature element) ---- */
+  #reel-stage{
+    display:flex; justify-content:center;
+    padding:14px 0 6px;
+  }
+  #cassette{ width:100%; max-width:300px; height:auto; display:block; overflow:visible; }
+
+  .cassette-shell{ fill:var(--surface-2); stroke:var(--border); stroke-width:2; }
+  .cassette-label-bg{ fill:var(--cream); }
+  .cassette-label-shadow{ fill:#000; opacity:0.12; }
+
+  .ruled-line{ stroke:rgba(27,27,58,0.25); stroke-width:1.3; }
+  .spec-label{ font-family:var(--font-body); font-weight:800; fill:#1B1B3A; }
+  .cassette-title{ font-family:var(--font-marker); fill:var(--coral); }
+
+  .rainbow-red{ fill:#EF4444; } .rainbow-orange{ fill:#FB923C; } .rainbow-yellow{ fill:#FACC15; }
+  .rainbow-green{ fill:#4ADE80; } .rainbow-blue{ fill:#38BDF8; } .rainbow-violet{ fill:#A78BFA; }
+
+  .cassette-window{ fill:var(--ink-navy); }
+  .hub-base{ fill:#EDEBF5; }
+  .hub-center{ fill:var(--ink-navy); }
+  .reel{ transform-box: fill-box; transform-origin: center; }
+  .reel.spin .hub-base{ fill:var(--lime); }
+  .reel.spin-rev .hub-base{ fill:var(--coral); }
+  .reel.spin{ animation:spin 1.1s linear infinite; }
+  .reel.spin-rev{ animation:spin 1.1s linear infinite reverse; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  .tape-shape{ fill:#8b87ad; }
+  .tape-hatch{ stroke:rgba(255,255,255,0.35); stroke-width:1.2; }
+  .tape-flow-line{ stroke:rgba(255,255,255,0); stroke-width:3; stroke-linecap:round; fill:none; }
+  .tape-flow-line.moving{ stroke:var(--cream); opacity:0.8; stroke-dasharray:5 5; animation:tapeflow .5s linear infinite; }
+  @keyframes tapeflow{ to{ stroke-dashoffset:-20; } }
+
+  .screw{ fill:var(--ink-navy); opacity:0.55; }
+  .notch{ fill:var(--ink-navy); opacity:0.5; }
+
+  .clip-status{
+    text-align:center; margin:4px 0 18px;
+  }
+  .clip-status .label{
+    font-size:12px; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-dim); font-weight:600;
+  }
+  .clip-status .title{
+    font-family:var(--font-display);
+    font-size:19px; margin-top:4px; min-height:24px;
+  }
+  .clip-status .title.hidden-answer{ color:var(--text-dim); font-family:var(--font-body); font-style:italic; font-size:15px; }
+
+  .reveal-answer-box{
+    background:var(--surface);
+    border:1.5px solid var(--coral);
+    border-radius:var(--radius-md);
+    padding:14px;
+    text-align:center;
+    margin-bottom:12px;
+  }
+  .reveal-answer-label{
+    font-size:11px; text-transform:uppercase; letter-spacing:1.5px;
+    color:var(--text-dim); font-weight:700; margin-bottom:4px;
+  }
+  .reveal-answer-title{
+    font-family:var(--font-display); font-size:18px; color:var(--coral);
+  }
+
+  .big-btn{
+    width:100%;
+    border:none;
+    border-radius:var(--radius-lg);
+    padding:18px;
+    font-family:var(--font-body);
+    font-weight:700;
+    font-size:16px;
+    color:var(--ink-navy);
+    background:var(--lime);
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    cursor:pointer;
+    margin-bottom:12px;
+    box-shadow:var(--shadow);
+    transition:transform .08s ease, filter .15s ease;
+  }
+  .big-btn:active{ transform:scale(0.97); }
+  .big-btn:disabled{ opacity:0.35; cursor:not-allowed; box-shadow:none; }
+  .big-btn.primary{ background:var(--coral); color:#fff; }
+  .big-btn.ghost{
+    background:transparent; color:var(--text); border:1.5px solid var(--border);
+    box-shadow:none;
+  }
+  .big-btn.recording{ background:var(--coral); color:#fff; animation:pulse 1s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{filter:brightness(1);} 50%{filter:brightness(1.18);} }
+  .btn-icon{ font-size:18px; }
+
+  .row2{ display:flex; gap:10px; }
+  .row2 .big-btn{ flex:1; }
+
+  .section-label{
+    font-size:12px; text-transform:uppercase; letter-spacing:1.5px;
+    color:var(--text-dim); font-weight:700; margin:22px 0 10px;
+  }
+
+  .award-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px; }
+  .award-btn{
+    border-radius:var(--radius-md);
+    border:1.5px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    padding:12px 10px;
+    font-family:var(--font-body); font-weight:700; font-size:14px;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+  }
+  .award-btn:active{ transform:scale(0.96); }
+  .award-btn:disabled{ opacity:0.3; }
+  .award-btn-name{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; }
+  .award-btn-score{
+    font-family:var(--font-mono); color:var(--coral); font-weight:700; font-size:14px;
+    background:var(--surface-2); padding:2px 8px; border-radius:10px; flex-shrink:0;
+  }
+  .skip-link{
+    display:block; text-align:center; color:var(--text-dim);
+    font-size:13px; margin:6px 0 4px; cursor:pointer; text-decoration:underline;
+  }
+
+  .banner{
+    border-radius:var(--radius-md);
+    padding:10px 14px; font-size:13px; font-weight:600;
+    margin-bottom:14px; display:flex; align-items:center; gap:8px;
+  }
+  .banner.warn{ background:rgba(255,178,56,0.15); color:var(--amber); border:1px solid rgba(255,178,56,0.4); }
+  .banner.err{ background:rgba(255,93,115,0.15); color:var(--coral); border:1px solid rgba(255,93,115,0.4); }
+  .banner.ok{ background:rgba(198,255,61,0.15); color:var(--lime); border:1px solid rgba(198,255,61,0.4); }
+
+  /* ---- scoring tab ---- */
+  .team-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:16px;
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:12px;
+    box-shadow:var(--shadow);
+  }
+  .team-card .name-score{ display:flex; flex-direction:column; gap:2px; }
+  .team-card .name{ font-weight:700; font-size:15px; }
+  .team-card .score{ font-family:var(--font-mono); font-size:28px; color:var(--coral); font-weight:700; }
+  .stepper{ display:flex; align-items:center; gap:10px; }
+  .step-btn{
+    width:38px;height:38px;border-radius:50%;
+    border:none; background:var(--surface-2); color:var(--text);
+    font-size:18px; font-weight:700; cursor:pointer;
+  }
+  .step-btn:active{ transform:scale(0.9); }
+  .step-btn.plus{ background:var(--lime); color:var(--ink-navy); }
+
+  .winner-banner{
+    background:linear-gradient(120deg, var(--coral), var(--lime));
+    color:var(--ink-navy);
+    border-radius:var(--radius-lg);
+    padding:20px; text-align:center; margin-bottom:16px;
+    font-family:var(--font-display); font-size:18px;
+    box-shadow:var(--shadow);
+  }
+  .winner-banner div.sub{ font-family:var(--font-body); font-weight:600; font-size:13px; margin-top:6px; }
+
+  .history-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:12px 14px; margin-bottom:10px;
+  }
+  .history-date{
+    font-family:var(--font-mono); font-size:11px; color:var(--text-dim);
+    letter-spacing:0.5px; margin-bottom:8px; text-transform:uppercase;
+  }
+  .history-team-row{
+    display:flex; align-items:center; justify-content:space-between;
+    font-size:14px; font-weight:600; padding:3px 0;
+  }
+  .history-team-row.winner{ color:var(--coral); font-weight:700; }
+
+  .confetti-piece{
+    position:fixed; top:-24px; pointer-events:none; z-index:70;
+    animation:confetti-fall linear forwards;
+  }
+  @keyframes confetti-fall{
+    0%{ transform:translateY(0) rotate(0deg); opacity:1; }
+    100%{ transform:translateY(115vh) rotate(600deg); opacity:0.4; }
+  }
+
+  .text-btn{
+    background:none;border:none;color:var(--text-dim);
+    text-decoration:underline; font-size:13px; cursor:pointer; padding:6px 0;
+  }
+
+  /* ---- settings tab ---- */
+  .settings-block{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:16px;
+    margin-bottom:14px;
+  }
+  .settings-block.reset-newgame-block{
+    border-color:rgba(198,255,61,0.35);
+    text-align:center;
+  }
+  .settings-block h3{
+    margin:0 0 12px; font-size:13px; text-transform:uppercase;
+    letter-spacing:1.2px; color:var(--text-dim); font-weight:700;
+  }
+  .field-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+  .field-row:last-child{ margin-bottom:0; }
+  .field-row label{ font-size:14px; font-weight:600; }
+  input[type=range]{
+    width:100%; accent-color:var(--coral); margin-top:4px;
+  }
+  .field-value{ font-family:var(--font-mono); color:var(--coral); font-weight:700; font-size:14px; }
+  input[type=number]{
+    width:70px; background:var(--surface-2); border:1px solid var(--border);
+    color:var(--text); border-radius:8px; padding:8px; font-family:var(--font-mono); font-size:14px; text-align:center;
+  }
+  input[type=text]{
+    width:100%; background:var(--surface-2); border:1px solid var(--border);
+    color:var(--text); border-radius:8px; padding:9px 10px; font-family:var(--font-body); font-size:14px;
+  }
+  .team-name-row{ display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+  .team-count-toggle{ display:flex; gap:8px; margin-bottom:14px; }
+  .count-chip{
+    flex:1; text-align:center; padding:9px 0; border-radius:10px;
+    border:1.5px solid var(--border); background:var(--surface-2);
+    font-weight:700; cursor:pointer; font-size:14px;
+  }
+  .count-chip.active{ background:var(--coral); color:#fff; border-color:var(--coral); }
+
+  .switch{
+    position:relative; width:46px; height:26px; flex-shrink:0;
+  }
+  .switch input{ opacity:0; width:0; height:0; }
+  .slider{
+    position:absolute; cursor:pointer; inset:0;
+    background:var(--surface-2); border-radius:26px; transition:.2s;
+    border:1px solid var(--border);
+  }
+  .slider::before{
+    content:''; position:absolute; height:18px; width:18px; left:3px; bottom:3px;
+    background:var(--text-dim); border-radius:50%; transition:.2s;
+  }
+  .switch input:checked + .slider{ background:var(--coral); }
+  .switch input:checked + .slider::before{ transform:translateX(19px); background:#fff; }
+
+  .pack-card{
+    padding:12px; border-radius:12px; border:1.5px solid var(--border);
+    margin-bottom:10px; background:var(--surface-2);
+  }
+  .pack-card-row{ display:flex; align-items:center; justify-content:space-between; }
+  .pack-card.locked{ opacity:0.62; }
+  .pack-name{ font-weight:700; font-size:14px; }
+  .pack-meta{ font-size:11.5px; color:var(--text-dim); margin-top:2px; }
+  .pack-toggle-btn{
+    border:none; border-radius:8px; padding:7px 12px; font-size:12.5px; font-weight:700; cursor:pointer;
+  }
+  .pack-toggle-btn.on{ background:var(--lime); color:var(--ink-navy); }
+  .pack-toggle-btn.off{ background:var(--surface); color:var(--text-dim); border:1px solid var(--border); }
+  .pack-toggle-btn.buy{ background:var(--tape-purple-soft); color:#fff; }
+
+  .category-dropdown-toggle{
+    width:100%; background:none; border:none; text-align:left; padding:10px 0 0;
+    color:var(--text-dim); font-family:var(--font-body); font-weight:700; font-size:12px;
+    text-transform:uppercase; letter-spacing:1px;
+    display:flex; align-items:center; justify-content:space-between; gap:6px;
+    cursor:pointer;
+  }
+  .category-dropdown-panel{ padding-top:10px; }
+  .category-row{ margin-bottom:8px; }
+  .category-row:last-child{ margin-bottom:0; }
+  .category-row label:first-child{ font-size:13px; font-weight:600; }
+
+  .danger-btn{
+    width:100%; background:none; border:1.5px solid var(--coral);
+    color:var(--coral); border-radius:var(--radius-md); padding:12px;
+    font-weight:700; cursor:pointer; margin-top:4px;
+  }
+  .danger-warning{
+    background:rgba(255,93,115,0.12); border:1px solid rgba(255,93,115,0.35);
+    color:var(--coral); font-size:12.5px; font-weight:600; line-height:1.5;
+    border-radius:var(--radius-md); padding:10px 12px; margin-bottom:10px;
+  }
+
+  .advanced-block summary{
+    cursor:pointer;
+    list-style:none;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .advanced-block summary::-webkit-details-marker{ display:none; }
+  .advanced-block summary::marker{ content:""; }
+  .advanced-summary-row{
+    display:flex; align-items:center; justify-content:space-between;
+    font-size:13px; text-transform:uppercase; letter-spacing:1.2px;
+    color:var(--text-dim); font-weight:700;
+  }
+  .advanced-chevron{ font-size:13px; transition:transform .2s ease; color:var(--text-dim); display:inline-block; }
+  .advanced-block[open] summary{ margin-bottom:14px; }
+  .advanced-block[open] .advanced-chevron, .advanced-chevron.open{ transform:rotate(180deg); }
+
+  .hint-text{ font-size:12px; color:var(--text-dim); line-height:1.5; margin:-4px 0 12px; }
+
+  .record-countdown{
+    text-align:center; font-family:var(--font-mono); font-weight:700; color:var(--coral);
+    font-size:13px; margin-top:-4px; margin-bottom:10px; display:none;
+  }
+  .record-preview-card{
+    background:var(--surface-2); border:1.5px dashed var(--border); border-radius:var(--radius-md);
+    padding:14px; margin-top:4px; margin-bottom:14px; display:none;
+  }
+  .record-preview-card .row2{ margin-bottom:10px; }
+  select{
+    width:100%; background:var(--surface); border:1px solid var(--border); color:var(--text);
+    border-radius:8px; padding:9px 10px; font-family:var(--font-body); font-size:14px; margin-bottom:10px;
+    appearance:none;
+  }
+
+  .empty-note{ font-size:13px; color:var(--text-dim); text-align:center; padding:10px 0; }
+
+  .myclip-card{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:12px; border-radius:12px; border:1.5px solid var(--border);
+    margin-bottom:10px; background:var(--surface-2);
+  }
+  .myclip-info{ flex:1; min-width:0; }
+  .myclip-title{ font-weight:700; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .myclip-meta{ font-size:11px; color:var(--text-dim); margin-top:4px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .category-tag{
+    display:inline-block; background:var(--tape-purple-soft); color:#fff;
+    font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:20px; white-space:nowrap;
+  }
+  .visibility-tag{ font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:20px; border:1px solid var(--border); white-space:nowrap; }
+  .visibility-tag.shared{ background:var(--lime); color:var(--ink-navy); border-color:var(--lime); }
+  .myclip-actions{ display:flex; align-items:center; gap:6px; flex-shrink:0; }
+  .icon-mini-btn{
+    width:32px;height:32px;border-radius:50%; background:var(--surface);
+    color:var(--text); font-size:14px; cursor:pointer; display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--border);
+  }
+  .icon-mini-btn:active{ transform:scale(0.9); }
+  .icon-mini-btn.danger{ color:var(--coral); }
+
+  /* ===================== BOTTOM NAV ===================== */
+  #bottomnav{
+    position:absolute; bottom:0; left:0; right:0;
+    display:flex;
+    background:var(--surface);
+    border-top:1px solid var(--border);
+    padding:10px 10px calc(10px + env(safe-area-inset-bottom));
+    max-width:480px; margin:0 auto;
+  }
+  .nav-btn{
+    flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
+    background:none; border:none; color:var(--text-dim);
+    font-family:var(--font-body); font-size:11.5px; font-weight:700;
+    padding:6px 0; cursor:pointer;
+  }
+  .nav-btn .nav-icon{ font-size:20px; }
+  .nav-btn.active{ color:var(--coral); }
+
+  /* modal */
+  .modal-backdrop{
+    position:absolute; inset:0; background:rgba(0,0,0,0.55);
+    display:none; align-items:center; justify-content:center; z-index:50; padding:24px;
+  }
+  .modal-backdrop.show{ display:flex; }
+  .modal-card{
+    background:var(--surface); border-radius:var(--radius-lg); padding:22px;
+    max-width:380px; max-height:80vh; overflow-y:auto; box-shadow:var(--shadow);
+  }
+  .modal-card h2{ font-family:var(--font-display); font-size:20px; margin-top:0; }
+  .modal-card p, .modal-card li{ font-size:14px; line-height:1.5; color:var(--text-dim); }
+  .modal-card ol{ padding-left:18px; }
+
+  ::-webkit-scrollbar{ width:0; height:0; }
+</style>
+</head>
+<body data-theme="dark">
+<div id="app">
+
+  <div id="topbar">
+    <div class="brand-row">
+      <div class="brand">ReverSing!</div>
+      <button class="icon-btn" id="btn-help" aria-label="Help">?</button>
+    </div>
+    <div id="timer-wrap">
+      <div id="timer-bar-track"><div id="timer-bar-fill"></div></div>
+      <div id="timer-readout">1:30</div>
+    </div>
+    <div class="team-pill"><span class="dot"></span>Up now: <b id="performing-team-label">Team 1</b></div>
+  </div>
+
+  <main>
+
+    <!-- ============ TAB 1: PLAY ============ -->
+    <section class="tab-panel active" id="tab-play">
+
+      <div id="mic-banner" class="banner err" style="display:none;">
+        🎙️ Microphone access is needed to record. Check your browser's permission prompt.
+      </div>
+      <div id="expired-banner" class="banner warn" style="display:none;">
+        ⏱️ Time's up — the next team can guess from what's already been recorded.
+      </div>
+
+      <div id="reel-stage">
+        <svg id="cassette" viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ReverSing! cassette tape">
+          <rect class="cassette-shell" x="8" y="8" width="324" height="184" rx="18"/>
+
+          <rect class="cassette-label-shadow" x="29" y="25" width="288" height="146" rx="10"/>
+          <rect class="cassette-label-bg" x="26" y="22" width="288" height="146" rx="10"/>
+
+          <line class="ruled-line" x1="40" y1="34" x2="300" y2="34"/>
+          <line class="ruled-line" x1="40" y1="44" x2="300" y2="44"/>
+          <line class="ruled-line" x1="40" y1="54" x2="300" y2="54"/>
+          <line class="ruled-line" x1="40" y1="64" x2="300" y2="64"/>
+          <text class="spec-label" id="cassette-runtime-label" x="40" y="53" font-size="22">90</text>
+          <text class="cassette-title" x="194" y="56" font-size="26" text-anchor="middle" transform="rotate(-4 194 50)">ReverSing!</text>
+
+          <rect class="rainbow-red"    x="26" y="66" width="288" height="11"/>
+          <rect class="rainbow-orange" x="26" y="77" width="288" height="11"/>
+          <rect class="rainbow-yellow" x="26" y="88" width="288" height="11"/>
+          <rect class="rainbow-green"  x="26" y="99" width="288" height="11"/>
+          <rect class="rainbow-blue"   x="26" y="110" width="288" height="11"/>
+          <rect class="rainbow-violet" x="26" y="121" width="288" height="11"/>
+
+          <g transform="translate(108,99)">
+            <circle class="cassette-window" r="26"/>
+            <g id="reel-left" class="reel">
+              <circle class="hub-base" r="14"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5" transform="rotate(45)"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5" transform="rotate(90)"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5" transform="rotate(135)"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5" transform="rotate(180)"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5" transform="rotate(225)"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5" transform="rotate(270)"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5" transform="rotate(315)"/>
+              <circle class="hub-center" r="3.4"/>
+            </g>
+          </g>
+          <g transform="translate(232,99)">
+            <circle class="cassette-window" r="26"/>
+            <g id="reel-right" class="reel">
+              <circle class="hub-base" r="14"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5" transform="rotate(45)"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5" transform="rotate(90)"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5" transform="rotate(135)"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5" transform="rotate(180)"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5" transform="rotate(225)"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5" transform="rotate(270)"/>
+              <rect class="hub-base" x="-2" y="-16" width="4" height="5" transform="rotate(315)"/>
+              <circle class="hub-center" r="3.4"/>
+            </g>
+          </g>
+
+          <rect class="tape-shape" x="146" y="90" width="48" height="20" rx="3"/>
+          <line class="tape-hatch" x1="155" y1="93" x2="151" y2="107"/>
+          <line class="tape-hatch" x1="165" y1="93" x2="161" y2="107"/>
+          <line class="tape-hatch" x1="175" y1="93" x2="171" y2="107"/>
+          <line class="tape-hatch" x1="185" y1="93" x2="181" y2="107"/>
+          <line id="tape-strand" class="tape-flow-line" x1="150" y1="100" x2="190" y2="100"/>
+
+          <text class="spec-label" x="40" y="157" font-size="15">SIDE 1</text>
+          <polygon class="spec-label" points="247,152 253,147 253,157"/>
+          <polygon class="spec-label" points="255,152 261,147 261,157"/>
+          <text class="spec-label" x="300" y="157" font-size="15" text-anchor="end">REV</text>
+
+          <circle class="screw" cx="22" cy="24" r="3.6"/>
+          <circle class="screw" cx="318" cy="24" r="3.6"/>
+          <circle class="screw" cx="22" cy="176" r="3.6"/>
+          <circle class="screw" cx="318" cy="176" r="3.6"/>
+          <rect class="notch" x="56" y="186" width="16" height="6" rx="2"/>
+          <rect class="notch" x="268" y="186" width="16" height="6" rx="2"/>
+        </svg>
+      </div>
+
+      <div class="clip-status">
+        <div class="label">Clip <span id="clip-index">–</span> of <span id="clip-total">–</span> · <span id="clip-pack-name">–</span></div>
+        <div class="title hidden-answer" id="clip-title">Press play to hear it reversed…</div>
+      </div>
+
+      <button class="big-btn" id="btn-play-clip">
+        <span class="btn-icon">▶️</span> Play Reversed Clip
+      </button>
+
+      <div class="row2">
+        <button class="big-btn primary" id="btn-record">
+          <span class="btn-icon">🎙️</span> Record Mimicry
+        </button>
+        <button class="big-btn ghost" id="btn-play-mimicry" disabled>
+          <span class="btn-icon">🔁</span> Play It Reversed
+        </button>
+      </div>
+
+      <button class="big-btn ghost" id="btn-reveal" disabled>
+        <span class="btn-icon">👀</span> Reveal Answer
+      </button>
+      <div class="reveal-answer-box" id="reveal-answer-box" style="display:none;">
+        <div class="reveal-answer-label">The answer was</div>
+        <div class="reveal-answer-title" id="reveal-answer-title"></div>
+      </div>
+
+      <div class="section-label">Who guessed it?</div>
+      <div class="award-grid" id="award-grid"></div>
+      <span class="skip-link" id="btn-skip">No one got it — skip round</span>
+
+    </section>
+
+    <!-- ============ TAB 2: SCORE ============ -->
+    <section class="tab-panel" id="tab-score">
+      <div id="winner-slot"></div>
+      <div id="teams-score-list"></div>
+      <button class="text-btn" id="btn-reset-scores">Reset all scores to 0</button>
+
+      <div class="section-label" style="margin-top:26px;">Game History</div>
+      <div id="game-history-list"></div>
+      <button class="text-btn" id="btn-clear-history">Clear game history</button>
+    </section>
+
+    <!-- ============ TAB 3: RECORD ============ -->
+    <section class="tab-panel" id="tab-record">
+      <div class="settings-block">
+        <h3>My Voice Clips</h3>
+        <p class="hint-text">Record ~5 seconds of yourself, or upload an audio file — either way it's saved reversed, same as the built-in clips. Titles are only ever shown to you here, or after Reveal in-game. Export a clip to a file to reuse it later, move it to another device, or send it to a friend to import.</p>
+
+        <div id="record-mic-banner" class="banner err" style="display:none;"></div>
+
+        <button class="big-btn primary" id="btn-record-clip">
+          <span class="btn-icon">🎙️</span> Record a 5s Clip
+        </button>
+        <div class="record-countdown" id="record-countdown"></div>
+
+        <button class="big-btn ghost" id="btn-upload-clip">
+          <span class="btn-icon">📁</span> Upload Audio or Clip File
+        </button>
+        <input type="file" id="input-upload-clip" accept="audio/*,application/json,.json" style="display:none;">
+
+        <div class="record-preview-card" id="record-preview-card">
+          <div class="row2">
+            <button class="big-btn ghost" id="btn-preview-forward"><span class="btn-icon">▶️</span> Hear Recording</button>
+            <button class="big-btn ghost" id="btn-preview-reversed"><span class="btn-icon">🔁</span> Hear Reversed</button>
+          </div>
+          <input type="text" id="input-clip-title" placeholder="What did you sing? (e.g. Happy Birthday)" maxlength="60">
+          <select id="input-clip-category"></select>
+          <div class="field-row">
+            <label>Share to community pool</label>
+            <label class="switch">
+              <input type="checkbox" id="input-clip-visibility" aria-label="Share to community pool">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="row2" style="margin-top:10px;">
+            <button class="big-btn ghost" id="btn-discard-clip">Discard</button>
+            <button class="big-btn" id="btn-save-clip">Save Clip</button>
+          </div>
+        </div>
+
+        <div id="myclip-list"></div>
+        <button class="text-btn" id="btn-export-all-clips">Export all clips to a file</button>
+      </div>
+    </section>
+
+    <!-- ============ TAB 4: SETTINGS ============ -->
+    <section class="tab-panel" id="tab-settings">
+
+      <div class="settings-block reset-newgame-block">
+        <button class="big-btn" id="btn-reset-new-game">🔄 Reset for New Game</button>
+        <p class="hint-text" style="margin-top:8px; margin-bottom:0;">Clears scores and puts teams and settings back to default — perfect before a fresh game. Your recorded clips and game history are kept.</p>
+      </div>
+
+      <div class="settings-block">
+        <h3>Round Timer</h3>
+        <div class="field-row">
+          <label>Seconds per round</label>
+          <span class="field-value" id="timer-setting-value">90s</span>
+        </div>
+        <input type="range" id="input-timer" min="30" max="90" step="5" value="90">
+      </div>
+
+      <div class="settings-block">
+        <h3>Winning</h3>
+        <div class="field-row">
+          <label>Points to win</label>
+          <input type="number" id="input-points-to-win" min="1" max="99" value="11">
+        </div>
+      </div>
+
+      <div class="settings-block">
+        <h3>Teams</h3>
+        <div class="team-count-toggle" id="team-count-toggle"></div>
+        <div id="team-name-inputs"></div>
+      </div>
+
+      <div class="settings-block">
+        <h3>Sound Packs</h3>
+        <div id="pack-list"></div>
+      </div>
+
+      <div class="settings-block">
+        <h3>Appearance</h3>
+        <div class="field-row">
+          <label>Dark mode</label>
+          <label class="switch">
+            <input type="checkbox" id="input-darkmode" checked aria-label="Dark mode">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="settings-block">
+        <h3>Countdown &amp; Celebration</h3>
+        <div class="field-row">
+          <label>Haptic buzz</label>
+          <label class="switch">
+            <input type="checkbox" id="input-haptic-enabled" checked aria-label="Haptic buzz">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="field-row">
+          <label>Sound effects</label>
+          <label class="switch">
+            <input type="checkbox" id="input-sound-enabled" checked aria-label="Sound effects">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <p class="hint-text" style="margin-top:10px;">Buzzes at 10 seconds left, then every second from 5 down to 1, with a longer buzz and tone right at zero. Also used for the win celebration. Haptic buzz needs a phone that supports it — it won't do anything on most desktop browsers.</p>
+      </div>
+
+      <details class="settings-block advanced-block">
+        <summary><span class="advanced-summary-row">Advanced <span class="advanced-chevron">▾</span></span></summary>
+        <p class="hint-text">A full factory reset — puts teams and settings back to default.</p>
+        <div class="danger-warning">⚠️ This also permanently deletes every recorded voice clip and all game history. This cannot be undone.</div>
+        <button class="danger-btn" id="btn-reset-all">Reset All Data</button>
+      </details>
+    </section>
+
+  </main>
+
+  <nav id="bottomnav">
+    <button class="nav-btn active" data-tab="tab-play"><span class="nav-icon">🎤</span>Play</button>
+    <button class="nav-btn" data-tab="tab-score"><span class="nav-icon">🏆</span>Score</button>
+    <button class="nav-btn" data-tab="tab-record"><span class="nav-icon">🔴</span>Record</button>
+    <button class="nav-btn" data-tab="tab-settings"><span class="nav-icon">⚙️</span>Settings</button>
+  </nav>
+
+  <div class="modal-backdrop" id="help-modal">
+    <div class="modal-card">
+      <h2 id="help-modal-title">How to Play</h2>
+      <div id="help-modal-body"></div>
+      <button class="big-btn primary" id="btn-close-help" style="margin-top:8px;">Got it</button>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="setup-modal">
+    <div class="modal-card">
+      <h2>Set Up Your Teams</h2>
+      <p class="hint-text" style="margin-top:0;">Who's playing tonight? You can always change this later in Settings.</p>
+      <div class="section-label" style="margin-top:0;">How many teams?</div>
+      <div class="team-count-toggle" id="setup-team-count-toggle"></div>
+      <div class="section-label">Team names</div>
+      <div id="setup-team-name-inputs"></div>
+      <button class="big-btn primary" id="btn-setup-done" style="margin-top:8px;">Let's Play!</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ===================================================================
+   STORAGE — wraps window.storage (Claude artifact bridge) with an
+   in-memory fallback so the app still runs if opened outside that
+   sandbox (e.g. downloaded and opened directly, or self-hosted).
+=================================================================== */
+const memFallback = {};
+const Store = {
+  async get(key){
+    if (window.storage) {
+      try { return await window.storage.get(key); }
+      catch(e){ return null; }
+    }
+    return (key in memFallback) ? {key, value: memFallback[key]} : null;
+  },
+  async set(key, value){
+    if (window.storage) {
+      try { return await window.storage.set(key, value); }
+      catch(e){ return null; }
+    }
+    memFallback[key] = value;
+    return {key, value};
+  },
+  async delete(key){
+    if (window.storage) {
+      try { return await window.storage.delete(key); }
+      catch(e){ return null; }
+    }
+    delete memFallback[key];
+    return {key, deleted: true};
+  }
+};
+const SKEY = "reversing:state:v1";
+
+/* ===================================================================
+   AUDIO ENGINE
+=================================================================== */
+let audioCtx = null;
+function getCtx(){
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === "suspended") audioCtx.resume();
+  return audioCtx;
+}
+
+function reverseBuffer(buffer){
+  const ctx = getCtx();
+  const out = ctx.createBuffer(buffer.numberOfChannels, buffer.length, buffer.sampleRate);
+  for (let ch = 0; ch < buffer.numberOfChannels; ch++){
+    const src = buffer.getChannelData(ch);
+    const rev = new Float32Array(src.length);
+    for (let i = 0; i < src.length; i++) rev[i] = src[src.length - 1 - i];
+    out.copyToChannel(rev, ch);
+  }
+  return out;
+}
+function truncateBuffer(buffer, maxSeconds){
+  const maxFrames = Math.floor(maxSeconds * buffer.sampleRate);
+  if (buffer.length <= maxFrames) return buffer;
+  const ctx = getCtx();
+  const out = ctx.createBuffer(buffer.numberOfChannels, maxFrames, buffer.sampleRate);
+  for (let ch = 0; ch < buffer.numberOfChannels; ch++){
+    out.copyToChannel(buffer.getChannelData(ch).subarray(0, maxFrames), ch);
+  }
+  return out;
+}
+
+let activeSource = null;
+function stopPlayback(){
+  if (activeSource){
+    try { activeSource.onended = null; activeSource.stop(); } catch(e){}
+    activeSource = null;
+  }
+}
+function playBuffer(buffer, onEnded){
+  stopPlayback();
+  const ctx = getCtx();
+  const src = ctx.createBufferSource();
+  src.buffer = buffer;
+  src.connect(ctx.destination);
+  src.onended = () => { if (activeSource === src) activeSource = null; if (onEnded) onEnded(); };
+  activeSource = src;
+  src.start(0);
+  return src;
+}
+
+/* ---- shared mic stream — request getUserMedia once, keep it open, and
+   reuse the same grant for every recording this session (mimicry + My
+   Voice Clips) instead of re-requesting per recording. Browsers persist
+   the underlying permission either way, but re-requesting a stream on
+   every single recording is what tends to trigger repeat prompts /
+   re-authorization on some browsers and mobile OS combinations. ---- */
+async function getSharedMicStream(){
+  if (state.sharedMicStream && state.sharedMicStream.active) return state.sharedMicStream;
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    const err = new Error("Microphone access isn't available in this context.");
+    err.code = "NO_MEDIADEVICES";
+    throw err;
+  }
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  stream.getTracks().forEach(track => {
+    track.addEventListener("ended", () => {
+      // Track ended unexpectedly (permission revoked, device unplugged, etc).
+      // Clear the cache so the next recording attempt correctly re-requests
+      // instead of silently reusing a dead stream.
+      if (state.sharedMicStream === stream) state.sharedMicStream = null;
+    });
+  });
+  state.sharedMicStream = stream;
+  return stream;
+}
+
+/* Builds a specific, accurate message for why a recording attempt failed —
+   distinguishing "there was never a permission prompt to check" from "the
+   prompt appeared and was denied" from "no mic exists," instead of one
+   generic message for every failure mode. */
+function micErrorMessage(err){
+  if ((err && err.code === "NO_MEDIADEVICES") || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    return "🎙️ This browser won't grant microphone access from a downloaded file here — there's no permission prompt to check because it's already blocked. Open this page from a hosted link (starting with https://) instead of a local file, and it should prompt normally.";
+  }
+  if (err && err.name === "NotAllowedError"){
+    return "🎙️ Microphone access was blocked. On a phone, check your browser app's own permission too (e.g. Settings → Apps → Chrome → Permissions → Microphone), not just the in-page prompt.";
+  }
+  if (err && err.name === "NotFoundError"){
+    return "🎙️ No microphone was found on this device.";
+  }
+  return "🎙️ Microphone access is needed to record. Check your browser's permission prompt.";
+}
+
+/* ---- WAV encode / base64 — window.storage is text/JSON only, so a
+   recorded (and already-reversed) buffer gets encoded to a real WAV
+   file and base64-stringified before it's persisted. ---- */
+function bufferToWav(buffer){
+  const numChannels = buffer.numberOfChannels;
+  const sampleRate = buffer.sampleRate;
+  const numFrames = buffer.length;
+  const bytesPerSample = 2, blockAlign = numChannels * bytesPerSample;
+  const dataSize = numFrames * blockAlign;
+  const arrBuf = new ArrayBuffer(44 + dataSize);
+  const view = new DataView(arrBuf);
+  const writeStr = (offset, str) => { for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i)); };
+  writeStr(0, "RIFF"); view.setUint32(4, 36 + dataSize, true); writeStr(8, "WAVE");
+  writeStr(12, "fmt "); view.setUint32(16, 16, true); view.setUint16(20, 1, true);
+  view.setUint16(22, numChannels, true); view.setUint32(24, sampleRate, true);
+  view.setUint32(28, sampleRate * blockAlign, true); view.setUint16(32, blockAlign, true); view.setUint16(34, 16, true);
+  writeStr(36, "data"); view.setUint32(40, dataSize, true);
+  const channelData = [];
+  for (let c = 0; c < numChannels; c++) channelData.push(buffer.getChannelData(c));
+  let offset = 44;
+  for (let i = 0; i < numFrames; i++){
+    for (let c = 0; c < numChannels; c++){
+      let s = Math.max(-1, Math.min(1, channelData[c][i]));
+      s = s < 0 ? s * 0x8000 : s * 0x7FFF;
+      view.setInt16(offset, s, true);
+      offset += 2;
+    }
+  }
+  return new Blob([arrBuf], {type: "audio/wav"});
+}
+function blobToBase64(blob){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(String(reader.result).split(",")[1] || "");
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+function base64ToBlob(b64, mime){
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new Blob([bytes], {type: mime});
+}
+async function decodeWavBase64(b64){
+  const blob = base64ToBlob(b64, "audio/wav");
+  const arrBuf = await blob.arrayBuffer();
+  return await getCtx().decodeAudioData(arrBuf);
+}
+
+/* ===================================================================
+   CLIP LIBRARY — populated entirely from the user's own recorded clips
+   (see MY VOICE CLIPS section below, which fills this via
+   refreshMyClipsInLibrary()). No built-in sample content ships here.
+=================================================================== */
+let CLIPS = [];
+
+/* ===================================================================
+   GAME STATE
+=================================================================== */
+const DEFAULTS = {
+  settings: {
+    roundSeconds: 90, pointsToWin: 11, darkMode: true,
+    activePacks: [], activeMyClipCategories: ["easy","medium","difficult","insane"],
+    seenHelp: { play:false, score:false, record:false, settings:false },
+    hasCompletedSetup: false,
+    hapticEnabled: true, soundEnabled: true,
+  },
+  teams: [ {name:"Team 1", score:0}, {name:"Team 2", score:0} ],
+};
+
+let state = {
+  settings: JSON.parse(JSON.stringify(DEFAULTS.settings)),
+  teams: JSON.parse(JSON.stringify(DEFAULTS.teams)),
+  performingIndex: 0,
+  shuffleBag: [],
+  currentClip: null,
+  roundActive: false,
+  timeExpired: false,
+  revealed: false,
+  timerRemaining: 90,
+  timerHandle: null,
+  isRecording: false,
+  mimicryReversedBuffer: null,
+  sharedMicStream: null, // one getUserMedia grant, reused for every recording this session
+  mediaRecorder: null,
+  myClips: [], // {id, title, category, visibility, createdAt} — audio stored separately
+  myClipCategoriesExpanded: false,
+  pendingRecording: null, // {forward, reversed} awaiting save/discard
+  clipRecorder: null,
+  clipStopTimer: null,
+  winCelebrated: false,
+  gameHistory: [],
+};
+
+async function persist(){
+  await Store.set(SKEY, { settings: state.settings, teams: state.teams });
+}
+async function restore(){
+  const rec = await Store.get(SKEY);
+  if (rec && rec.value){
+    if (rec.value.settings) Object.assign(state.settings, rec.value.settings);
+    if (rec.value.teams && rec.value.teams.length >= 2) state.teams = rec.value.teams;
+  }
+  // Migration: earlier versions used a "demo" placeholder pack, and gated
+  // "My Voice Clips" through activePacks. Both are retired — difficulty
+  // categories now control which of your own clips are in play.
+  state.settings.activePacks = state.settings.activePacks.filter(id => id !== "demo" && id !== "mine");
+  if (!Array.isArray(state.settings.activeMyClipCategories)){
+    state.settings.activeMyClipCategories = CATEGORIES.map(c => c.id);
+  }
+  // Migration: the round timer's max dropped from 180s to 90s — clamp any
+  // previously-saved value so the slider and the actual timer agree.
+  state.settings.roundSeconds = Math.min(90, Math.max(30, state.settings.roundSeconds));
+}
+
+/* ===================================================================
+   DOM REFS
+=================================================================== */
+const el = id => document.getElementById(id);
+const reelLeft = el("reel-left"), reelRight = el("reel-right"), tapeStrand = el("tape-strand");
+const btnPlayClip = el("btn-play-clip"), btnRecord = el("btn-record"),
+      btnPlayMimicry = el("btn-play-mimicry"), btnReveal = el("btn-reveal"),
+      btnSkip = el("btn-skip");
+const clipTitleEl = el("clip-title"), clipIndexEl = el("clip-index"), clipTotalEl = el("clip-total"),
+      clipPackEl = el("clip-pack-name");
+const revealAnswerBox = el("reveal-answer-box"), revealAnswerTitleEl = el("reveal-answer-title");
+const timerReadout = el("timer-readout"), timerFill = el("timer-bar-fill"), timerWrap = el("timer-wrap");
+const cassetteRuntimeLabel = el("cassette-runtime-label");
+const performingLabel = el("performing-team-label");
+const expiredBanner = el("expired-banner"), micBanner = el("mic-banner");
+const awardGrid = el("award-grid");
+
+const btnRecordClip = el("btn-record-clip"), recordCountdown = el("record-countdown"),
+      recordPreviewCard = el("record-preview-card"), btnPreviewForward = el("btn-preview-forward"),
+      btnPreviewReversed = el("btn-preview-reversed"), inputClipTitle = el("input-clip-title"),
+      inputClipCategory = el("input-clip-category"), inputClipVisibility = el("input-clip-visibility"),
+      btnDiscardClip = el("btn-discard-clip"), btnSaveClip = el("btn-save-clip"),
+      myClipListEl = el("myclip-list"), recordMicBanner = el("record-mic-banner");
+const btnUploadClip = el("btn-upload-clip"), inputUploadClip = el("input-upload-clip"),
+      btnExportAllClips = el("btn-export-all-clips");
+
+/* ===================================================================
+   REEL / TAPE VISUAL STATE
+=================================================================== */
+function setReelMode(mode){
+  reelLeft.setAttribute("class", "reel");
+  reelRight.setAttribute("class", "reel");
+  tapeStrand.setAttribute("class", "tape-flow-line");
+  if (mode === "clip"){ reelLeft.classList.add("spin"); reelRight.classList.add("spin"); tapeStrand.classList.add("moving"); }
+  else if (mode === "record"){ reelLeft.classList.add("spin-rev"); reelRight.classList.add("spin-rev"); tapeStrand.classList.add("moving"); }
+  else if (mode === "mimicry"){ reelLeft.classList.add("spin"); reelRight.classList.add("spin"); tapeStrand.classList.add("moving"); }
+}
+
+/* ===================================================================
+   TIMER
+=================================================================== */
+function fmtTime(sec){
+  const m = Math.floor(sec/60), s = sec % 60;
+  return m + ":" + String(s).padStart(2,"0");
+}
+function updateCassetteRuntimeLabel(){
+  cassetteRuntimeLabel.textContent = state.settings.roundSeconds;
+}
+function updateTimerUI(){
+  timerReadout.textContent = fmtTime(state.timerRemaining);
+  const pct = Math.max(0, (state.timerRemaining / state.settings.roundSeconds) * 100);
+  timerFill.style.width = pct + "%";
+  timerWrap.classList.toggle("urgent", state.timerRemaining <= 15);
+}
+
+/* ---- countdown haptic + sound cues — a heads-up buzz at 10s, then a
+   buzz every second from 5 down to 1, and a longer buzz + soft tone
+   right at 0. Each channel (haptic / sound) can be turned off in
+   Settings independently. ---- */
+function playTickSound(){
+  if (!state.settings.soundEnabled) return;
+  const ctx = getCtx();
+  const t = ctx.currentTime;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(880, t);
+  gain.gain.setValueAtTime(0, t);
+  gain.gain.linearRampToValueAtTime(0.16, t + 0.015);
+  gain.gain.exponentialRampToValueAtTime(0.001, t + 0.13);
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.start(t); osc.stop(t + 0.14);
+}
+function playBuzzerSound(){
+  if (!state.settings.soundEnabled) return;
+  const ctx = getCtx();
+  const t = ctx.currentTime;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(320, t);
+  osc.frequency.exponentialRampToValueAtTime(170, t + 0.45);
+  gain.gain.setValueAtTime(0, t);
+  gain.gain.linearRampToValueAtTime(0.22, t + 0.03);
+  gain.gain.linearRampToValueAtTime(0.15, t + 0.25);
+  gain.gain.exponentialRampToValueAtTime(0.001, t + 0.5);
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.start(t); osc.stop(t + 0.5);
+}
+function hapticBuzz(pattern){
+  if (state.settings.hapticEnabled && navigator.vibrate) navigator.vibrate(pattern);
+}
+function playCountdownCue(secondsRemaining){
+  if (secondsRemaining === 0){
+    hapticBuzz(400);
+    playBuzzerSound();
+  } else {
+    hapticBuzz(60);
+    playTickSound();
+  }
+}
+function stopTimer(){
+  if (state.timerHandle){ clearInterval(state.timerHandle); state.timerHandle = null; }
+}
+function startTimer(){
+  stopTimer();
+  state.timerRemaining = state.settings.roundSeconds;
+  state.timeExpired = false;
+  expiredBanner.style.display = "none";
+  updateTimerUI();
+  state.timerHandle = setInterval(() => {
+    state.timerRemaining--;
+    if (state.timerRemaining <= 0){
+      state.timerRemaining = 0;
+      updateTimerUI();
+      stopTimer();
+      state.timeExpired = true;
+      expiredBanner.style.display = "flex";
+      playCountdownCue(0);
+    } else {
+      updateTimerUI();
+      if (state.timerRemaining === 10 || (state.timerRemaining <= 5 && state.timerRemaining >= 1)){
+        playCountdownCue(state.timerRemaining);
+      }
+    }
+  }, 1000);
+}
+
+/* ===================================================================
+   CLIP / ROUND FLOW
+=================================================================== */
+function activeClipPool(){
+  return CLIPS.filter(c => {
+    if (c.pack === "mine") return state.settings.activeMyClipCategories.includes(c.category);
+    return state.settings.activePacks.includes(c.pack);
+  });
+}
+function refillShuffleBag(){
+  const pool = activeClipPool();
+  const idx = pool.map((_,i)=>i);
+  for (let i = idx.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i+1));
+    [idx[i], idx[j]] = [idx[j], idx[i]];
+  }
+  state.shuffleBag = idx;
+}
+function drawNextClip(){
+  const pool = activeClipPool();
+  if (pool.length === 0) return null;
+  if (state.shuffleBag.length === 0) refillShuffleBag();
+  const i = state.shuffleBag.pop();
+  return pool[i];
+}
+
+function resetRoundUI(){
+  clipTitleEl.textContent = "Press play to hear it reversed…";
+  clipTitleEl.classList.add("hidden-answer");
+  btnPlayMimicry.disabled = true;
+  btnReveal.disabled = true;
+  state.mimicryReversedBuffer = null;
+  state.revealed = false;
+  revealAnswerBox.style.display = "none";
+  setReelMode("idle");
+}
+
+function startNewRound(){
+  stopPlayback(); stopTimer();
+  const pool = activeClipPool();
+  const total = pool.length;
+  clipTotalEl.textContent = total || "–";
+  const clip = drawNextClip();
+  if (!clip){
+    let msg;
+    if (state.myClips.length === 0){
+      msg = "No clips yet — record one in the Record tab.";
+    } else if (state.settings.activeMyClipCategories.length === 0){
+      msg = "All difficulty categories are off — turn some on in Settings.";
+    } else {
+      msg = "No clips match your enabled categories.";
+    }
+    clipTitleEl.textContent = msg;
+    clipTitleEl.classList.remove("hidden-answer");
+    clipPackEl.textContent = "–";
+    return;
+  }
+  state.currentClip = clip;
+  state.roundActive = true;
+  state.revealed = false;
+  state.mimicryReversedBuffer = null;
+  clipIndexEl.textContent = String((pool.length - state.shuffleBag.length));
+  clipPackEl.textContent = packLabel(clip.pack);
+  clipTitleEl.textContent = "Press play to hear it reversed…";
+  clipTitleEl.classList.add("hidden-answer");
+  btnPlayMimicry.disabled = true;
+  btnReveal.disabled = false;
+  performingLabel.textContent = state.teams[state.performingIndex].name;
+  startTimer();
+  playCurrentClip();
+  renderAwardGrid();
+}
+
+function playCurrentClip(){
+  if (!state.currentClip) return;
+  setReelMode("clip");
+  playBuffer(state.currentClip.reversed, () => setReelMode("idle"));
+}
+
+function endRound(){
+  stopTimer(); stopPlayback();
+  state.roundActive = false;
+  state.performingIndex = (state.performingIndex + 1) % state.teams.length;
+  performingLabel.textContent = state.teams[state.performingIndex].name;
+  state.timerRemaining = state.settings.roundSeconds;
+  updateTimerUI();
+  resetRoundUI();
+}
+
+function packLabel(id){
+  const p = PACKS.find(p=>p.id===id);
+  return p ? p.name : id;
+}
+
+/* ===================================================================
+   RECORDING (mic capture -> decode -> reverse)
+=================================================================== */
+async function toggleRecording(){
+  if (state.isRecording){
+    if (state.mediaRecorder && state.mediaRecorder.state !== "inactive"){
+      state.mediaRecorder.stop();
+    }
+    return;
+  }
+  micBanner.style.display = "none";
+  try {
+    const stream = await getSharedMicStream();
+    const mimeCandidates = ["audio/webm;codecs=opus","audio/webm","audio/mp4"];
+    const mime = mimeCandidates.find(m => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)) || "";
+    const rec = mime ? new MediaRecorder(stream, {mimeType: mime}) : new MediaRecorder(stream);
+    const chunks = [];
+    rec.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+    rec.onstop = async () => {
+      state.isRecording = false;
+      btnRecord.classList.remove("recording");
+      btnRecord.innerHTML = '<span class="btn-icon">🎙️</span> Record Mimicry';
+      setReelMode("idle");
+      try {
+        const blob = new Blob(chunks, {type: rec.mimeType || "audio/webm"});
+        const arrBuf = await blob.arrayBuffer();
+        const ctx = getCtx();
+        const decoded = await ctx.decodeAudioData(arrBuf);
+        state.mimicryReversedBuffer = reverseBuffer(decoded);
+        btnPlayMimicry.disabled = false;
+      } catch(err){
+        micBanner.textContent = "⚠️ Could not process that recording — please try again.";
+        micBanner.style.display = "flex";
+      }
+    };
+    state.mediaRecorder = rec;
+    rec.start();
+    state.isRecording = true;
+    btnRecord.classList.add("recording");
+    btnRecord.innerHTML = '<span class="btn-icon">⏹</span> Stop Recording';
+    setReelMode("record");
+  } catch(err){
+    micBanner.textContent = micErrorMessage(err);
+    micBanner.style.display = "flex";
+  }
+}
+
+function playMimicryReversed(){
+  if (!state.mimicryReversedBuffer) return;
+  setReelMode("mimicry");
+  playBuffer(state.mimicryReversedBuffer, () => setReelMode("idle"));
+}
+
+/* ===================================================================
+   AWARD / SCORE
+=================================================================== */
+function renderAwardGrid(){
+  awardGrid.innerHTML = "";
+  state.teams.forEach((team, i) => {
+    const b = document.createElement("button");
+    b.className = "award-btn";
+    b.innerHTML =
+      '<span class="award-btn-name">' + escapeHtml(team.name) + '</span>' +
+      '<span class="award-btn-score">' + team.score + '</span>';
+    b.disabled = !state.roundActive;
+    b.onclick = () => awardPoint(i);
+    awardGrid.appendChild(b);
+  });
+}
+function awardPoint(teamIndex){
+  if (!state.roundActive) return;
+  state.teams[teamIndex].score += 1;
+  persist();
+  endRound();
+  renderScoreTab();
+  renderAwardGrid();
+}
+function skipRound(){
+  if (!state.roundActive) return;
+  endRound();
+}
+
+/* ===================================================================
+   REVEAL
+=================================================================== */
+function revealAnswer(){
+  if (state.revealed || !state.currentClip) return;
+  state.revealed = true;
+  clipTitleEl.textContent = state.currentClip.title;
+  clipTitleEl.classList.remove("hidden-answer");
+  revealAnswerTitleEl.textContent = state.currentClip.title;
+  revealAnswerBox.style.display = "block";
+  btnReveal.disabled = true;
+}
+
+/* ===================================================================
+   WIN CELEBRATION — confetti burst + haptic buzz pattern + chime,
+   fired once per new win (see the winCelebrated guard in renderScoreTab).
+=================================================================== */
+function launchConfetti(){
+  const colors = ["#FF5D73","#C6FF3D","#FFB238","#4A3F8C","#F5F1E8"];
+  const count = 36;
+  for (let i = 0; i < count; i++){
+    const piece = document.createElement("div");
+    piece.className = "confetti-piece";
+    const size = 6 + Math.random()*6;
+    piece.style.left = Math.random()*100 + "vw";
+    piece.style.width = size + "px";
+    piece.style.height = (size*1.6) + "px";
+    piece.style.background = colors[Math.floor(Math.random()*colors.length)];
+    piece.style.animationDuration = (1.8 + Math.random()*1.4) + "s";
+    piece.style.animationDelay = (Math.random()*0.4) + "s";
+    piece.style.borderRadius = Math.random() < 0.5 ? "2px" : "50%";
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 3800);
+  }
+}
+function playCelebrationChime(){
+  if (!state.settings.soundEnabled) return;
+  const ctx = getCtx();
+  const notes = [523.25, 659.25, 783.99, 1046.50]; // C5 E5 G5 C6 — a quick "ta-da"
+  let t = ctx.currentTime;
+  notes.forEach(freq => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "triangle";
+    osc.frequency.setValueAtTime(freq, t);
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(0.22, t + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(t); osc.stop(t + 0.36);
+    t += 0.12;
+  });
+}
+function celebrateWin(){
+  launchConfetti();
+  hapticBuzz([100,80,100,80,100,80,100]); // 4 short buzzes
+  playCelebrationChime();
+}
+
+/* ===================================================================
+   SCORE TAB
+=================================================================== */
+function renderScoreTab(){
+  const list = el("teams-score-list");
+  list.innerHTML = "";
+  const winner = state.teams.find(t => t.score >= state.settings.pointsToWin);
+  const winnerSlot = el("winner-slot");
+  winnerSlot.innerHTML = "";
+  if (winner){
+    const w = document.createElement("div");
+    w.className = "winner-banner";
+    w.innerHTML = "🎉 " + escapeHtml(winner.name) + " wins! 🎉<div class='sub'>First to " + state.settings.pointsToWin + " points</div>";
+    winnerSlot.appendChild(w);
+    if (!state.winCelebrated){
+      state.winCelebrated = true;
+      celebrateWin();
+      recordGameToHistory(winner);
+    }
+  } else {
+    state.winCelebrated = false;
+  }
+  state.teams.forEach((team, i) => {
+    const card = document.createElement("div");
+    card.className = "team-card";
+    card.innerHTML =
+      '<div class="name-score"><div class="name">' + escapeHtml(team.name) + '</div><div class="score">' + team.score + '</div></div>' +
+      '<div class="stepper">' +
+        '<button class="step-btn minus" data-i="' + i + '" aria-label="Decrease ' + escapeHtml(team.name) + '\'s score">−</button>' +
+        '<button class="step-btn plus" data-i="' + i + '" aria-label="Increase ' + escapeHtml(team.name) + '\'s score">+</button>' +
+      '</div>';
+    list.appendChild(card);
+  });
+  list.querySelectorAll(".step-btn.plus").forEach(btn => btn.onclick = () => { adjustScore(+1, +btn.dataset.i); });
+  list.querySelectorAll(".step-btn.minus").forEach(btn => btn.onclick = () => { adjustScore(-1, +btn.dataset.i); });
+}
+function adjustScore(delta, i){
+  state.teams[i].score = Math.max(0, state.teams[i].score + delta);
+  persist();
+  renderScoreTab();
+  renderAwardGrid();
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ===================================================================
+   SOUND PACKS ("mine" — your recorded clips — is functional; the
+   others are stub "coming soon" tiles for future purchasable packs)
+=================================================================== */
+const CATEGORIES = [
+  { id:"easy",      label:"🟢 Easy" },
+  { id:"medium",    label:"🟡 Medium" },
+  { id:"difficult", label:"🟠 Difficult" },
+  { id:"insane",    label:"🔴 Insane!" },
+];
+function categoryLabel(id){
+  const c = CATEGORIES.find(c=>c.id===id);
+  return c ? c.label : "⚪ Unrated";
+}
+
+const PACKS = [
+  { id:"mine", name:"My Voice Clips", desc:"", locked:false },
+  { id:"pop",  name:"Pop Hits Pack", desc:"Chart-topping favorites — coming soon", locked:true },
+  { id:"80s",  name:"Totally 80s Pack", desc:"Synth & big hair classics — coming soon", locked:true },
+];
+function myClipCategoriesAnyOn(){
+  return state.settings.activeMyClipCategories.length > 0;
+}
+function myClipCategoriesAllOn(){
+  return CATEGORIES.every(c => state.settings.activeMyClipCategories.includes(c.id));
+}
+function renderPackList(){
+  const wrap = el("pack-list");
+  wrap.innerHTML = "";
+  PACKS.forEach(pack => {
+    if (pack.id === "mine"){
+      wrap.appendChild(buildMyClipsPackCard());
+      return;
+    }
+    const card = document.createElement("div");
+    card.className = "pack-card" + (pack.locked ? " locked" : "");
+    const row = document.createElement("div");
+    row.className = "pack-card-row";
+    row.innerHTML =
+      '<div><div class="pack-name">' + pack.name + (pack.locked ? " 🔒" : "") + '</div><div class="pack-meta">' + pack.desc + '</div></div>';
+    const btn = document.createElement("button");
+    btn.className = "pack-toggle-btn buy";
+    btn.textContent = "Get pack";
+    btn.onclick = () => alert("Extra sound packs aren't available in this prototype yet — this button is a placeholder for a future in-app purchase.");
+    row.appendChild(btn);
+    card.appendChild(row);
+    wrap.appendChild(card);
+  });
+}
+function buildMyClipsPackCard(){
+  const anyOn = myClipCategoriesAnyOn();
+  const desc = state.myClips.length + " clip" + (state.myClips.length === 1 ? "" : "s") + " you've recorded — no titles shown here";
+  const card = document.createElement("div");
+  card.className = "pack-card";
+  card.innerHTML =
+    '<div class="pack-card-row">' +
+      '<div><div class="pack-name">My Voice Clips</div><div class="pack-meta">' + desc + '</div></div>' +
+      '<button class="pack-toggle-btn ' + (anyOn ? "on" : "off") + ' mine-master-toggle">' + (anyOn ? "On" : "Off") + '</button>' +
+    '</div>' +
+    '<button class="category-dropdown-toggle">Categories <span class="advanced-chevron' + (state.myClipCategoriesExpanded ? " open" : "") + '">▾</span></button>' +
+    '<div class="category-dropdown-panel" style="display:' + (state.myClipCategoriesExpanded ? "block" : "none") + ';">' +
+      CATEGORIES.map(c =>
+        '<div class="field-row category-row">' +
+          '<label>' + c.label + '</label>' +
+          '<label class="switch"><input type="checkbox" data-cat="' + c.id + '" aria-label="' + c.label.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, "").trim() + ' clips" ' + (state.settings.activeMyClipCategories.includes(c.id) ? "checked" : "") + '><span class="slider"></span></label>' +
+        '</div>'
+      ).join("") +
+    '</div>';
+  card.querySelector(".mine-master-toggle").onclick = toggleMyClipsMaster;
+  card.querySelector(".category-dropdown-toggle").onclick = () => {
+    state.myClipCategoriesExpanded = !state.myClipCategoriesExpanded;
+    renderPackList();
+  };
+  card.querySelectorAll("[data-cat]").forEach(input => {
+    input.onchange = () => toggleMyClipCategory(input.dataset.cat);
+  });
+  return card;
+}
+function toggleMyClipsMaster(){
+  state.settings.activeMyClipCategories = myClipCategoriesAllOn() ? [] : CATEGORIES.map(c => c.id);
+  state.shuffleBag = [];
+  persist();
+  renderPackList();
+  clipTotalEl.textContent = activeClipPool().length;
+}
+function toggleMyClipCategory(id){
+  const arr = state.settings.activeMyClipCategories;
+  const i = arr.indexOf(id);
+  if (i >= 0) arr.splice(i,1);
+  else arr.push(id);
+  state.shuffleBag = [];
+  persist();
+  renderPackList();
+  clipTotalEl.textContent = activeClipPool().length;
+}
+function togglePack(id){
+  const i = state.settings.activePacks.indexOf(id);
+  if (i >= 0){
+    if (state.settings.activePacks.length === 1) return; // keep at least one pack on
+    state.settings.activePacks.splice(i,1);
+  } else {
+    state.settings.activePacks.push(id);
+  }
+  state.shuffleBag = [];
+  persist();
+  renderPackList();
+}
+
+/* ===================================================================
+   GAME HISTORY — a running log of completed games (final scores per
+   team), recorded automatically the moment a team first hits the
+   points target. Shown on the Score tab.
+=================================================================== */
+const HISTORY_KEY = "reversing:history:v1";
+
+async function loadGameHistory(){
+  const rec = await Store.get(HISTORY_KEY);
+  state.gameHistory = (rec && Array.isArray(rec.value)) ? rec.value : [];
+}
+async function persistGameHistory(){
+  await Store.set(HISTORY_KEY, state.gameHistory);
+}
+function recordGameToHistory(winner){
+  state.gameHistory.unshift({
+    id: "game-" + Date.now(),
+    date: Date.now(),
+    teams: state.teams.map(t => ({ name: t.name, score: t.score })),
+    winnerName: winner.name,
+    pointsToWin: state.settings.pointsToWin,
+  });
+  persistGameHistory();
+  renderGameHistory();
+}
+function renderGameHistory(){
+  const wrap = el("game-history-list");
+  if (!wrap) return;
+  wrap.innerHTML = "";
+  if (state.gameHistory.length === 0){
+    wrap.innerHTML = '<div class="empty-note">Play a game to add game history.</div>';
+    return;
+  }
+  state.gameHistory.forEach(entry => {
+    const card = document.createElement("div");
+    card.className = "history-card";
+    const dateStr = new Date(entry.date).toLocaleDateString(undefined, { month:"short", day:"numeric", year:"numeric" });
+    const rows = entry.teams.slice().sort((a,b) => b.score - a.score).map(t =>
+      '<div class="history-team-row' + (t.name === entry.winnerName ? ' winner' : '') + '">' +
+        '<span>' + (t.name === entry.winnerName ? '🏆 ' : '') + escapeHtml(t.name) + '</span>' +
+        '<span>' + t.score + '</span>' +
+      '</div>'
+    ).join("");
+    card.innerHTML = '<div class="history-date">' + dateStr + '</div>' + rows;
+    wrap.appendChild(card);
+  });
+}
+
+/* ===================================================================
+   MY VOICE CLIPS — record ~5s of your own singing, save it reversed,
+   and it drops into the shuffle pool exactly like a built-in clip.
+   Persisted on this device for now (see chat for the cloud-sync step
+   that makes this cross-device with real account-based sharing).
+=================================================================== */
+const MYCLIPS_INDEX_KEY = "reversing:myclips:index:v1";
+let myClipBufferCache = {}; // id -> decoded reversed AudioBuffer
+
+function renderCategoryOptions(){
+  inputClipCategory.innerHTML = CATEGORIES.map(c => '<option value="'+c.id+'">'+c.label+'</option>').join("");
+}
+
+async function loadMyClips(){
+  const rec = await Store.get(MYCLIPS_INDEX_KEY);
+  state.myClips = (rec && Array.isArray(rec.value)) ? rec.value : [];
+}
+async function persistMyClipsIndex(){
+  await Store.set(MYCLIPS_INDEX_KEY, state.myClips);
+}
+
+async function refreshMyClipsInLibrary(){
+  CLIPS = CLIPS.filter(c => c.pack !== "mine");
+  for (const meta of state.myClips){
+    let buf = myClipBufferCache[meta.id];
+    if (!buf){
+      try {
+        const audioRec = await Store.get("reversing:myclip-audio:" + meta.id);
+        if (audioRec && audioRec.value){
+          buf = await decodeWavBase64(audioRec.value);
+          myClipBufferCache[meta.id] = buf;
+        }
+      } catch(e){ /* skip clips that fail to decode */ }
+    }
+    if (buf) CLIPS.push({ id: meta.id, title: meta.title, pack: "mine", category: meta.category, reversed: buf });
+  }
+}
+
+function toggleClipRecording(){
+  if (state.clipRecorder && state.clipRecorder.state !== "inactive"){
+    state.clipRecorder.stop();
+    return;
+  }
+  startClipRecording();
+}
+
+async function startClipRecording(){
+  recordMicBanner.style.display = "none";
+  recordPreviewCard.style.display = "none";
+  try {
+    const stream = await getSharedMicStream();
+    const mimeCandidates = ["audio/webm;codecs=opus","audio/webm","audio/mp4"];
+    const mime = mimeCandidates.find(m => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)) || "";
+    const rec = mime ? new MediaRecorder(stream, {mimeType: mime}) : new MediaRecorder(stream);
+    const chunks = [];
+    let tick = null;
+    rec.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+    rec.onstop = async () => {
+      if (tick) clearInterval(tick);
+      clearTimeout(state.clipStopTimer);
+      state.clipStopTimer = null;
+      btnRecordClip.classList.remove("recording");
+      btnRecordClip.innerHTML = '<span class="btn-icon">🎙️</span> Record a 5s Clip';
+      recordCountdown.style.display = "none";
+      try {
+        const blob = new Blob(chunks, {type: rec.mimeType || "audio/webm"});
+        const arrBuf = await blob.arrayBuffer();
+        const ctx = getCtx();
+        const forward = await ctx.decodeAudioData(arrBuf);
+        const reversed = reverseBuffer(forward);
+        state.pendingRecording = { forward, reversed };
+        inputClipTitle.value = "";
+        inputClipVisibility.checked = false;
+        recordPreviewCard.style.display = "block";
+      } catch(err){
+        recordMicBanner.textContent = "⚠️ Could not process that recording — please try again.";
+        recordMicBanner.style.display = "flex";
+      }
+    };
+    state.clipRecorder = rec;
+    rec.start();
+    btnRecordClip.classList.add("recording");
+    btnRecordClip.innerHTML = '<span class="btn-icon">⏹</span> Stop Recording';
+    let remaining = 5;
+    recordCountdown.style.display = "block";
+    recordCountdown.textContent = "Recording… " + remaining + "s";
+    tick = setInterval(() => {
+      remaining--;
+      if (remaining > 0) recordCountdown.textContent = "Recording… " + remaining + "s";
+      else clearInterval(tick);
+    }, 1000);
+    state.clipStopTimer = setTimeout(() => { if (rec.state !== "inactive") rec.stop(); }, 5000);
+  } catch(err){
+    recordMicBanner.textContent = micErrorMessage(err);
+    recordMicBanner.className = "banner err";
+    recordMicBanner.style.display = "flex";
+  }
+}
+
+function discardPendingRecording(){
+  state.pendingRecording = null;
+  recordPreviewCard.style.display = "none";
+}
+
+async function savePendingRecording(){
+  if (!state.pendingRecording) return;
+  const title = inputClipTitle.value.trim() || ("Untitled Clip " + (state.myClips.length + 1));
+  const category = inputClipCategory.value || CATEGORIES[CATEGORIES.length-1].id;
+  const visibility = inputClipVisibility.checked ? "shared" : "private";
+  const id = "clip-" + Date.now() + "-" + Math.random().toString(36).slice(2,7);
+  const wavBlob = bufferToWav(state.pendingRecording.reversed);
+  const b64 = await blobToBase64(wavBlob);
+  await Store.set("reversing:myclip-audio:" + id, b64);
+  myClipBufferCache[id] = state.pendingRecording.reversed;
+  state.myClips.push({ id, title, category, visibility, createdAt: Date.now() });
+  await persistMyClipsIndex();
+  await refreshMyClipsInLibrary();
+  if (!state.settings.activeMyClipCategories.includes(category)){
+    state.settings.activeMyClipCategories.push(category); // a clip you just saved should always be playable
+    await persist();
+  }
+  state.shuffleBag = []; // pool size changed — old indices no longer line up with clips
+  state.pendingRecording = null;
+  recordPreviewCard.style.display = "none";
+  clipTotalEl.textContent = activeClipPool().length;
+  renderMyClipsSection();
+  renderPackList();
+}
+
+async function deleteMyClip(id){
+  if (!confirm("Delete this recorded clip? This can't be undone.")) return;
+  state.myClips = state.myClips.filter(c => c.id !== id);
+  delete myClipBufferCache[id];
+  await persistMyClipsIndex();
+  await Store.delete("reversing:myclip-audio:" + id);
+  await refreshMyClipsInLibrary();
+  state.shuffleBag = []; // pool size changed — old indices no longer line up with clips
+  clipTotalEl.textContent = activeClipPool().length;
+  renderMyClipsSection();
+  renderPackList();
+}
+
+/* ---- file-based export / import — local files instead of cloud sync.
+   Export writes a small JSON "clip package" (metadata + the already-
+   reversed audio as base64) that can be saved anywhere, re-imported
+   later, or handed to someone else. Import accepts either that same
+   package format, or a plain audio file to run through the normal
+   record → reverse → save flow. ---- */
+const MAX_UPLOAD_SECONDS = 15;
+const CLIP_PACKAGE_TYPE = "reversing-clip";
+
+function downloadJson(obj, filename){
+  const blob = new Blob([JSON.stringify(obj)], {type: "application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+function slugify(str){
+  const s = String(str).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-+|-+$)/g, "").slice(0, 40);
+  return s || "clip";
+}
+function clipToPackage(meta, audioBase64){
+  return {
+    type: CLIP_PACKAGE_TYPE, version: 1,
+    title: meta.title, category: meta.category, visibility: meta.visibility,
+    createdAt: meta.createdAt, audioWavBase64: audioBase64,
+  };
+}
+
+async function downloadClipPackage(id){
+  const meta = state.myClips.find(c => c.id === id);
+  if (!meta) return;
+  const audioRec = await Store.get("reversing:myclip-audio:" + id);
+  if (!audioRec || !audioRec.value){
+    recordMicBanner.textContent = "⚠️ Couldn't read that clip's audio to export it.";
+    recordMicBanner.className = "banner err";
+    recordMicBanner.style.display = "flex";
+    return;
+  }
+  downloadJson(clipToPackage(meta, audioRec.value), "reversing-clip-" + slugify(meta.title) + ".json");
+}
+
+async function exportAllClips(){
+  if (state.myClips.length === 0){
+    recordMicBanner.textContent = "You haven't recorded any clips yet — nothing to export.";
+    recordMicBanner.className = "banner warn";
+    recordMicBanner.style.display = "flex";
+    return;
+  }
+  const pkgs = [];
+  for (const meta of state.myClips){
+    const audioRec = await Store.get("reversing:myclip-audio:" + meta.id);
+    if (audioRec && audioRec.value) pkgs.push(clipToPackage(meta, audioRec.value));
+  }
+  downloadJson(pkgs, "reversing-clips-" + pkgs.length + ".json");
+}
+
+/* Imports one already-validated clip package directly into the library
+   (no preview step needed — it already carries title/category/visibility
+   and audio that's already reversed). Returns true on success. */
+async function importClipPackage(item){
+  try {
+    const buf = await decodeWavBase64(item.audioWavBase64); // validates the audio decodes cleanly
+    const id = "clip-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7);
+    await Store.set("reversing:myclip-audio:" + id, item.audioWavBase64);
+    myClipBufferCache[id] = buf;
+    const category = CATEGORIES.some(c => c.id === item.category) ? item.category : "medium";
+    const visibility = item.visibility === "shared" ? "shared" : "private";
+    state.myClips.push({
+      id, title: String(item.title || "Imported Clip").slice(0, 60),
+      category, visibility, createdAt: item.createdAt || Date.now(),
+    });
+    if (!state.settings.activeMyClipCategories.includes(category)){
+      state.settings.activeMyClipCategories.push(category);
+    }
+    return true;
+  } catch(err){
+    return false;
+  }
+}
+
+async function handleUploadedFile(file){
+  recordMicBanner.style.display = "none";
+  const looksLikeJson = file.name.toLowerCase().endsWith(".json") || file.type === "application/json";
+
+  if (looksLikeJson){
+    let items;
+    try {
+      const parsed = JSON.parse(await file.text());
+      items = (Array.isArray(parsed) ? parsed : [parsed]).filter(
+        x => x && x.type === CLIP_PACKAGE_TYPE && typeof x.audioWavBase64 === "string"
+      );
+      if (items.length === 0) throw new Error("empty");
+    } catch(err){
+      recordMicBanner.textContent = "⚠️ That file isn't a ReverSing! clip export, or it's corrupted.";
+      recordMicBanner.className = "banner err";
+      recordMicBanner.style.display = "flex";
+      return;
+    }
+    let ok = 0;
+    for (const item of items){ if (await importClipPackage(item)) ok++; }
+    await persistMyClipsIndex();
+    await persist();
+    await refreshMyClipsInLibrary();
+    state.shuffleBag = [];
+    clipTotalEl.textContent = activeClipPool().length;
+    renderMyClipsSection();
+    renderPackList();
+    const failed = items.length - ok;
+    recordMicBanner.textContent = "✅ Imported " + ok + " clip" + (ok === 1 ? "" : "s") + "." + (failed ? " (" + failed + " couldn't be read.)" : "");
+    recordMicBanner.className = "banner ok";
+    recordMicBanner.style.display = "flex";
+    return;
+  }
+
+  // Otherwise: treat it as a plain audio file, same pipeline as a live mic
+  // recording — decode, reverse, and let the user title/tag it before saving.
+  try {
+    const arrBuf = await file.arrayBuffer();
+    const ctx = getCtx();
+    let forward = await ctx.decodeAudioData(arrBuf);
+    const wasTrimmed = forward.duration > MAX_UPLOAD_SECONDS;
+    if (wasTrimmed) forward = truncateBuffer(forward, MAX_UPLOAD_SECONDS);
+    const reversed = reverseBuffer(forward);
+    state.pendingRecording = { forward, reversed };
+    inputClipTitle.value = file.name.replace(/\.[^./\\]+$/, "").slice(0, 60);
+    inputClipVisibility.checked = false;
+    recordPreviewCard.style.display = "block";
+    if (wasTrimmed){
+      recordMicBanner.textContent = "ℹ️ That file was longer than " + MAX_UPLOAD_SECONDS + "s — only the first " + MAX_UPLOAD_SECONDS + " seconds were used.";
+      recordMicBanner.className = "banner warn";
+      recordMicBanner.style.display = "flex";
+    }
+  } catch(err){
+    recordMicBanner.textContent = "⚠️ Couldn't read that as an audio file. Try a .wav, .mp3, or .m4a.";
+    recordMicBanner.className = "banner err";
+    recordMicBanner.style.display = "flex";
+  }
+}
+
+function renderMyClipsSection(){
+  myClipListEl.innerHTML = "";
+  if (state.myClips.length === 0){
+    myClipListEl.innerHTML = '<div class="empty-note">You haven\'t recorded any clips yet.</div>';
+    return;
+  }
+  state.myClips.slice().reverse().forEach(meta => {
+    const row = document.createElement("div");
+    row.className = "myclip-card";
+    row.innerHTML =
+      '<div class="myclip-info">' +
+        '<div class="myclip-title">' + escapeHtml(meta.title) + '</div>' +
+        '<div class="myclip-meta">' +
+          '<span class="category-tag">' + categoryLabel(meta.category) + '</span>' +
+          '<span class="visibility-tag' + (meta.visibility === "shared" ? " shared" : "") + '">' + (meta.visibility === "shared" ? "Shared" : "Private") + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="myclip-actions">' +
+        '<button class="icon-mini-btn" data-play="' + meta.id + '" title="Preview reversed" aria-label="Preview ' + escapeHtml(meta.title) + ' reversed">🔁</button>' +
+        '<button class="icon-mini-btn" data-download="' + meta.id + '" title="Export to file" aria-label="Export ' + escapeHtml(meta.title) + ' to a file">⬇️</button>' +
+        '<button class="icon-mini-btn danger" data-del="' + meta.id + '" title="Delete" aria-label="Delete ' + escapeHtml(meta.title) + '">🗑️</button>' +
+      '</div>';
+    myClipListEl.appendChild(row);
+  });
+  myClipListEl.querySelectorAll("[data-play]").forEach(btn => {
+    btn.onclick = () => { const buf = myClipBufferCache[btn.dataset.play]; if (buf) playBuffer(buf); };
+  });
+  myClipListEl.querySelectorAll("[data-download]").forEach(btn => {
+    btn.onclick = () => downloadClipPackage(btn.dataset.download);
+  });
+  myClipListEl.querySelectorAll("[data-del]").forEach(btn => {
+    btn.onclick = () => deleteMyClip(btn.dataset.del);
+  });
+}
+
+/* ===================================================================
+   SETTINGS TAB
+=================================================================== */
+function renderSettingsTab(){
+  el("input-timer").value = state.settings.roundSeconds;
+  el("timer-setting-value").textContent = state.settings.roundSeconds + "s";
+  el("input-points-to-win").value = state.settings.pointsToWin;
+  el("input-darkmode").checked = state.settings.darkMode;
+  el("input-haptic-enabled").checked = state.settings.hapticEnabled;
+  el("input-sound-enabled").checked = state.settings.soundEnabled;
+  renderTeamCountToggle("team-count-toggle");
+  renderTeamNameInputs("team-name-inputs");
+  renderPackList();
+}
+function renderTeamCountToggle(containerId){
+  const wrap = el(containerId);
+  if (!wrap) return;
+  wrap.innerHTML = "";
+  [2,3,4].forEach(n => {
+    const chip = document.createElement("div");
+    chip.className = "count-chip" + (state.teams.length === n ? " active" : "");
+    chip.textContent = n + " teams";
+    chip.onclick = () => setTeamCount(n);
+    wrap.appendChild(chip);
+  });
+}
+function setTeamCount(n){
+  while (state.teams.length < n) state.teams.push({name:"Team " + (state.teams.length+1), score:0});
+  while (state.teams.length > n) state.teams.pop();
+  if (state.performingIndex >= state.teams.length) state.performingIndex = 0;
+  persist();
+  renderAllTeamControls();
+  renderScoreTab();
+  renderAwardGrid();
+  performingLabel.textContent = state.teams[state.performingIndex].name;
+}
+function renderTeamNameInputs(containerId){
+  const wrap = el(containerId);
+  if (!wrap) return;
+  wrap.innerHTML = "";
+  state.teams.forEach((team, i) => {
+    const row = document.createElement("div");
+    row.className = "team-name-row";
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = team.name;
+    input.maxLength = 20;
+    input.placeholder = "Team " + (i+1);
+    input.setAttribute("aria-label", "Name for team " + (i+1));
+    input.oninput = () => {
+      state.teams[i].name = input.value || ("Team " + (i+1));
+      persist();
+      renderScoreTab();
+      renderAwardGrid();
+      if (i === state.performingIndex) performingLabel.textContent = state.teams[i].name;
+    };
+    row.appendChild(input);
+    wrap.appendChild(row);
+  });
+}
+function renderAllTeamControls(){
+  renderTeamCountToggle("team-count-toggle");
+  renderTeamCountToggle("setup-team-count-toggle");
+  renderTeamNameInputs("team-name-inputs");
+  renderTeamNameInputs("setup-team-name-inputs");
+}
+
+/* ===================================================================
+   CONTEXTUAL HELP — each tab has its own "?" content. The first time
+   a person ever lands on a given tab, its help opens automatically;
+   after that it only opens when they tap "?" themselves.
+=================================================================== */
+const HELP_CONTENT = {
+  play: {
+    title: "How to Play",
+    body:
+      '<ol>' +
+        '<li>Tap <b>Play Reversed Clip</b> — a weird backwards sound clip plays. Listen as many times as you need.</li>' +
+        '<li>The performer taps <b>Record Mimicry</b> and sings/says their best attempt at copying that backwards sound.</li>' +
+        '<li>Tap <b>Play It Reversed</b> — this flips the recording back around. If the mimicry was close, it should sound like the real song!</li>' +
+        '<li>Your team shouts out a guess. Got it right within the timer? Tap your team below to score a point.</li>' +
+        '<li>Time runs out before anyone guesses? The next team can guess from the same recording — no do-over needed.</li>' +
+        '<li>Stuck? Tap <b>Reveal Answer</b> — but it only works once per clip.</li>' +
+        '<li>First team to the point target (set in Settings) wins!</li>' +
+      '</ol>',
+  },
+  score: {
+    title: "Scoring",
+    body:
+      '<p>This tab shows every team\'s running score, updated live as points are awarded on the Play tab.</p>' +
+      '<p>Tap <b>−</b> or <b>+</b> next to a team to adjust their score by hand anytime — handy for fixing a mistake.</p>' +
+      '<p>A winner banner appears automatically once a team reaches the points target set in Settings.</p>' +
+      '<p><b>Reset all scores to 0</b> clears every score, but keeps your teams and settings as they are.</p>',
+  },
+  record: {
+    title: "My Voice Clips",
+    body:
+      '<p><b>Naming matters most.</b> Whatever you type as the title is exactly what shows up when someone taps <b>Reveal Answer</b> mid-game — so name each clip clearly and accurately (the real song or phrase), not a joke or placeholder. A vague title ruins the reveal.</p>' +
+      '<p><b>Recording vs. uploading.</b> Record live for a quick ~5 second clip, or tap <b>Upload Audio or Clip File</b> to use an existing audio file instead — it gets reversed the same way. You can also re-import a file this app previously exported; it comes back exactly as it was, no retyping needed.</p>' +
+      '<p><b>Picking a difficulty.</b> After recording or uploading, listen to the <b>reversed</b> version yourself and use your own judgment: still sounds fairly guessable? Mark it Easy. Nearly unrecognizable gibberish? Insane! Medium and Difficult fall in between — there\'s no wrong answer, it\'s just a hint for whoever plays it.</p>',
+  },
+  settings: {
+    title: "Settings",
+    body:
+      '<p><b>Reset for New Game</b> (top of this tab) clears scores and puts teams and settings back to default — your recorded clips and game history are kept.</p>' +
+      '<p><b>Round Timer</b> sets how long each round lasts, from 30 to 90 seconds.</p>' +
+      '<p><b>Points to Win</b> sets the target score — first team there wins.</p>' +
+      '<p><b>Teams</b> lets you pick 2–4 teams and rename them.</p>' +
+      '<p><b>Sound Packs</b> controls which of your recorded clips are in play — toggle the whole pack on or off, or open Categories to fine-tune by difficulty.</p>' +
+      '<p><b>Appearance</b> switches between dark and light mode.</p>' +
+      '<p><b>Advanced → Reset All Data</b> is a full factory reset — it also permanently deletes every recorded clip and all game history. This can\'t be undone.</p>',
+  },
+};
+function helpKeyForTab(tabId){
+  return { "tab-play":"play", "tab-score":"score", "tab-record":"record", "tab-settings":"settings" }[tabId] || null;
+}
+function openHelpModal(key){
+  const content = HELP_CONTENT[key];
+  if (!content) return;
+  el("help-modal-title").textContent = content.title;
+  el("help-modal-body").innerHTML = content.body;
+  el("help-modal").classList.add("show");
+}
+function maybeAutoShowHelp(tabId){
+  const key = helpKeyForTab(tabId);
+  if (!key || state.settings.seenHelp[key]) return;
+  state.settings.seenHelp[key] = true;
+  persist();
+  openHelpModal(key);
+}
+
+/* ===================================================================
+   TAB NAVIGATION
+=================================================================== */
+function showTab(id){
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.toggle("active", p.id === id));
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === id));
+  document.getElementById("timer-wrap").style.display = (id === "tab-play") ? "flex" : "none";
+  document.querySelector(".team-pill").style.display = (id === "tab-play") ? "flex" : "none";
+  const key = helpKeyForTab(id);
+  if (key && HELP_CONTENT[key]) el("btn-help").setAttribute("aria-label", HELP_CONTENT[key].title);
+  maybeAutoShowHelp(id);
+}
+
+/* ===================================================================
+   THEME
+=================================================================== */
+function applyTheme(){
+  document.body.setAttribute("data-theme", state.settings.darkMode ? "dark" : "light");
+}
+
+/* ===================================================================
+   WIRE UP EVENTS
+=================================================================== */
+btnPlayClip.onclick = () => {
+  if (state.roundActive) playCurrentClip();
+  else startNewRound();
+};
+btnRecord.onclick = toggleRecording;
+btnPlayMimicry.onclick = playMimicryReversed;
+btnReveal.onclick = revealAnswer;
+btnSkip.onclick = skipRound;
+
+btnRecordClip.onclick = toggleClipRecording;
+btnPreviewForward.onclick = () => { if (state.pendingRecording) playBuffer(state.pendingRecording.forward); };
+btnPreviewReversed.onclick = () => { if (state.pendingRecording) playBuffer(state.pendingRecording.reversed); };
+btnDiscardClip.onclick = discardPendingRecording;
+btnSaveClip.onclick = savePendingRecording;
+
+btnUploadClip.onclick = () => inputUploadClip.click();
+inputUploadClip.onchange = async (e) => {
+  const file = e.target.files[0];
+  inputUploadClip.value = ""; // allow picking the same file again later
+  if (file) await handleUploadedFile(file);
+};
+btnExportAllClips.onclick = exportAllClips;
+
+document.querySelectorAll(".nav-btn").forEach(btn => {
+  btn.onclick = () => showTab(btn.dataset.tab);
+});
+
+el("btn-help").onclick = () => {
+  const activePanel = document.querySelector(".tab-panel.active");
+  openHelpModal(helpKeyForTab(activePanel ? activePanel.id : "tab-play"));
+};
+el("btn-close-help").onclick = () => el("help-modal").classList.remove("show");
+el("help-modal").onclick = (e) => { if (e.target.id === "help-modal") el("help-modal").classList.remove("show"); };
+
+function finishSetup(){
+  el("setup-modal").classList.remove("show");
+  state.settings.hasCompletedSetup = true;
+  persist();
+  showTab("tab-play");
+}
+el("btn-setup-done").onclick = finishSetup;
+el("setup-modal").onclick = (e) => { if (e.target.id === "setup-modal") finishSetup(); };
+
+el("input-timer").oninput = (e) => {
+  state.settings.roundSeconds = +e.target.value;
+  el("timer-setting-value").textContent = state.settings.roundSeconds + "s";
+  updateCassetteRuntimeLabel();
+  if (!state.roundActive){
+    state.timerRemaining = state.settings.roundSeconds;
+    updateTimerUI();
+  }
+  persist();
+};
+el("input-points-to-win").onchange = (e) => {
+  let v = +e.target.value;
+  if (!v || v < 1) v = 1;
+  state.settings.pointsToWin = v;
+  persist();
+  renderScoreTab();
+};
+el("input-darkmode").onchange = (e) => {
+  state.settings.darkMode = e.target.checked;
+  applyTheme();
+  persist();
+};
+el("input-haptic-enabled").onchange = (e) => {
+  state.settings.hapticEnabled = e.target.checked;
+  persist();
+};
+el("input-sound-enabled").onchange = (e) => {
+  state.settings.soundEnabled = e.target.checked;
+  persist();
+};
+el("btn-reset-scores").onclick = () => {
+  state.teams.forEach(t => t.score = 0);
+  persist();
+  renderScoreTab();
+  renderAwardGrid();
+};
+el("btn-clear-history").onclick = () => {
+  if (state.gameHistory.length === 0) return;
+  if (!confirm("Clear all game history? This can't be undone.")) return;
+  state.gameHistory = [];
+  persistGameHistory();
+  renderGameHistory();
+};
+function resetSettingsAndTeams(){
+  state.settings = JSON.parse(JSON.stringify(DEFAULTS.settings));
+  state.teams = JSON.parse(JSON.stringify(DEFAULTS.teams));
+  state.performingIndex = 0;
+  state.shuffleBag = [];
+  applyTheme();
+  persist();
+  renderSettingsTab();
+  renderScoreTab();
+  renderAwardGrid();
+  renderAllTeamControls();
+  updateCassetteRuntimeLabel();
+  if (!state.roundActive){
+    state.timerRemaining = state.settings.roundSeconds;
+    updateTimerUI();
+  }
+  performingLabel.textContent = state.teams[0].name;
+  el("help-modal").classList.remove("show");
+  el("setup-modal").classList.add("show");
+}
+async function wipeAllClipsAndHistory(){
+  for (const meta of state.myClips){
+    await Store.delete("reversing:myclip-audio:" + meta.id);
+  }
+  state.myClips = [];
+  myClipBufferCache = {};
+  await persistMyClipsIndex();
+  await refreshMyClipsInLibrary();
+  state.gameHistory = [];
+  await persistGameHistory();
+  renderMyClipsSection();
+  renderPackList();
+  renderGameHistory();
+  clipTotalEl.textContent = activeClipPool().length;
+}
+el("btn-reset-new-game").onclick = () => {
+  if (!confirm("Start a new game? This resets scores, teams, and settings back to default. Your recorded clips and game history are kept.")) return;
+  resetSettingsAndTeams();
+};
+el("btn-reset-all").onclick = async () => {
+  if (!confirm("This will permanently erase ALL your recorded voice clips, game history, teams, scores, and settings. This cannot be undone. Are you sure?")) return;
+  await wipeAllClipsAndHistory();
+  resetSettingsAndTeams();
+};
+
+/* ===================================================================
+   INIT
+=================================================================== */
+async function init(){
+  await restore();
+  applyTheme();
+  await loadMyClips();
+  await refreshMyClipsInLibrary();
+  await loadGameHistory();
+  renderCategoryOptions();
+  renderMyClipsSection();
+  renderGameHistory();
+  clipTotalEl.textContent = activeClipPool().length;
+  performingLabel.textContent = state.teams[state.performingIndex].name;
+  updateCassetteRuntimeLabel();
+  state.timerRemaining = state.settings.roundSeconds;
+  updateTimerUI();
+  renderScoreTab();
+  renderSettingsTab();
+  renderAllTeamControls();
+  renderAwardGrid();
+  if (!state.settings.hasCompletedSetup){
+    el("setup-modal").classList.add("show");
+  } else {
+    showTab("tab-play");
+  }
+}
+init();
+
+/* Registers sw.js for offline support IF this file is being served over
+   http/https AND sw.js has been placed in the same folder. Does nothing
+   (silently) when opened as a local file, or before sw.js is hosted —
+   see the chat for what this is and how to actually turn it on. */
+if ("serviceWorker" in navigator && (location.protocol === "http:" || location.protocol === "https:")){
+  navigator.serviceWorker.register("./sw.js").catch(() => {});
+}
+
+})();
+</script>
+</body>
+</html>
