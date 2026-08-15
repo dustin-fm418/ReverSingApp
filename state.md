@@ -1,6 +1,10 @@
 # ReverSing! — Project State
 
-_Last updated: 2026-08-15_ (post `fa86b3c` game-build push)
+_Last updated: 2026-08-15_ (post `18fbbaf` docs push)
+
+`docs/` contains reference docs parsed out of the build for quick lookup
+(audio engine, round flow, scoring/reveal, sound packs, service worker,
+game state, storage bridge, etc.) — see [docs/README.md](docs/README.md).
 
 ## Summary
 
@@ -69,10 +73,9 @@ See [spec.md](spec.md) for full gameplay rules and design details.
   or strip the unused Nuxt scaffold out entirely.
 - `README.md` still has the default Nuxt starter content, not
   project-specific instructions.
-- `docs/` exists but is empty.
 - No automated tests for the game logic (single monolithic HTML/JS file).
-- `.netlify/` (local Netlify CLI state) is present but untracked —
-  confirm `.gitignore` covers it before committing.
+- `.netlify/` (local Netlify CLI state) remains untracked and uncommitted
+  intentionally — it's local CLI state, not project source.
 - No CHANGELOG tracking what changed between playtest builds (currently
   "v4" per the latest commit message, but that version isn't labeled
   anywhere in-app or in a dedicated file).
