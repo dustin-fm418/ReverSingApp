@@ -163,6 +163,33 @@
   .tab-panel.active{ display:block; }
   @keyframes fadein{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
 
+  #tab-play{ position:relative; }
+  #play-content.dimmed{
+    filter:brightness(0.35) saturate(0.55);
+    pointer-events:none;
+    transition:filter .2s ease;
+  }
+  .win-overlay{
+    display:none;
+    position:absolute; inset:0; z-index:5;
+    align-items:center; justify-content:center;
+    background:rgba(0,0,0,0.5);
+    border-radius:var(--radius-lg);
+    padding:20px;
+  }
+  .win-overlay-card{
+    background:var(--surface);
+    border:1.5px solid var(--coral);
+    border-radius:var(--radius-lg);
+    padding:24px 20px;
+    text-align:center;
+    box-shadow:var(--shadow);
+    max-width:300px;
+  }
+  .win-overlay-title{
+    font-family:var(--font-display); font-size:19px; color:var(--coral); margin-bottom:10px;
+  }
+
   /* ---- cassette widget (signature element) ---- */
   #reel-stage{
     display:flex; justify-content:center;
@@ -564,6 +591,7 @@
 
     <!-- ============ TAB 1: PLAY ============ -->
     <section class="tab-panel active" id="tab-play">
+      <div id="play-content">
 
       <div id="mic-banner" class="banner err" style="display:none;">
         🎙️ Microphone access is needed to record. Check your browser's permission prompt.
@@ -675,6 +703,16 @@
       <div class="award-grid" id="award-grid"></div>
       <span class="skip-link disabled" id="btn-skip">No one got it — skip round</span>
 
+      </div>
+
+      <div class="win-overlay" id="win-round-overlay">
+        <div class="win-overlay-card">
+          <div class="win-overlay-title">🏆 <span id="win-overlay-team-name"></span> wins!</div>
+          <p class="hint-text" style="margin-bottom:16px;">Your teams and already-used clips stay just as they are — only the score resets to zero.</p>
+          <button class="big-btn primary" id="btn-play-another-round">Start New Game With Current Teams?</button>
+        </div>
+      </div>
+
     </section>
 
     <!-- ============ TAB 2: SCORE ============ -->
@@ -693,6 +731,7 @@
       <div class="settings-block">
         <h3>My Voice Clips</h3>
         <p class="hint-text">Record ~5 seconds of yourself, or upload an audio file — either way it's saved reversed, same as the built-in clips. Titles are only ever shown to you here, or after Reveal in-game. Export a clip to a file to reuse it later, move it to another device, or send it to a friend to import.</p>
+        <button class="text-btn" id="btn-manage-categories" style="margin-bottom:6px;">🏷️ Manage Categories</button>
 
         <div id="record-mic-banner" class="banner err" style="display:none;"></div>
 
@@ -713,6 +752,10 @@
           </div>
           <input type="text" id="input-clip-title" placeholder="What did you sing? (e.g. Happy Birthday)" maxlength="60">
           <select id="input-clip-category"></select>
+          <div id="new-category-row" style="display:none; margin-top:-2px;">
+            <input type="text" id="input-new-category-name" placeholder="New category name (e.g. Disney)" maxlength="30">
+            <button class="big-btn ghost" id="btn-add-category" style="margin-top:8px;">Add</button>
+          </div>
           <div class="field-row">
             <label>Share to community pool</label>
             <label class="switch">
@@ -831,6 +874,28 @@
       <div class="section-label">Team names</div>
       <div id="setup-team-name-inputs"></div>
       <button class="big-btn primary" id="btn-setup-done" style="margin-top:8px;">Let's Play!</button>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="manage-categories-modal">
+    <div class="modal-card">
+      <h2>Manage Categories</h2>
+      <p class="hint-text" style="margin-top:0;">Delete any you don't use — clips tagged with a deleted one move to another category or level automatically, they're never lost. Deleting a built-in just hides it; you can bring it back anytime.</p>
+
+      <div class="section-label" style="margin-top:0;">Categories</div>
+      <div id="manage-categories-list"></div>
+      <input type="text" id="input-manage-new-category" placeholder="e.g. Holiday, Disney, 80s" maxlength="30" style="margin-top:8px;">
+      <button class="big-btn ghost" id="btn-manage-add-category" style="margin-top:8px;">Add a Category</button>
+
+      <div class="section-label" style="margin-top:22px;">Difficulty Levels</div>
+      <div id="manage-difficulty-list"></div>
+      <input type="text" id="input-manage-new-difficulty" placeholder="e.g. Legendary, Nightmare" maxlength="30" style="margin-top:8px;">
+      <button class="big-btn ghost" id="btn-manage-add-difficulty" style="margin-top:8px;">Add a Difficulty Level</button>
+
+      <div id="manage-categories-restore-row" style="display:none; margin:16px 0 0;">
+        <button class="text-btn" id="btn-restore-categories"></button>
+      </div>
+      <button class="big-btn primary" id="btn-close-manage-categories" style="margin-top:14px;">Done</button>
     </div>
   </div>
 
@@ -1059,7 +1124,10 @@ let state = {
   clipRecorder: null,
   clipStopTimer: null,
   winCelebrated: false,
+  winOverlayDismissed: false, // true once "Start New Game With Current Teams?" has been tapped for the current win
   gameHistory: [],
+  customCategories: [], // {id, label} — user-created clip categories, persist independently of Settings resets
+  hiddenCategoryIds: [], // built-in category ids the user has "deleted" — hidden, but restorable
 };
 
 async function persist(){
@@ -1099,6 +1167,8 @@ const cassetteRuntimeLabel = el("cassette-runtime-label");
 const performingLabel = el("performing-team-label");
 const expiredBanner = el("expired-banner"), micBanner = el("mic-banner");
 const awardGrid = el("award-grid");
+const playContentEl = el("play-content"), winOverlayEl = el("win-round-overlay"),
+      winOverlayTeamNameEl = el("win-overlay-team-name"), btnPlayAnotherRound = el("btn-play-another-round");
 
 const btnRecordClip = el("btn-record-clip"), recordCountdown = el("record-countdown"),
       recordPreviewCard = el("record-preview-card"), btnPreviewForward = el("btn-preview-forward"),
@@ -1106,6 +1176,14 @@ const btnRecordClip = el("btn-record-clip"), recordCountdown = el("record-countd
       inputClipCategory = el("input-clip-category"), inputClipVisibility = el("input-clip-visibility"),
       btnDiscardClip = el("btn-discard-clip"), btnSaveClip = el("btn-save-clip"),
       myClipListEl = el("myclip-list"), recordMicBanner = el("record-mic-banner");
+const newCategoryRow = el("new-category-row"), inputNewCategoryName = el("input-new-category-name"),
+      btnAddCategory = el("btn-add-category");
+const btnManageCategories = el("btn-manage-categories"), manageCategoriesModal = el("manage-categories-modal"),
+      manageCategoriesListEl = el("manage-categories-list"), manageCategoriesRestoreRow = el("manage-categories-restore-row"),
+      btnRestoreCategories = el("btn-restore-categories"), inputManageNewCategory = el("input-manage-new-category"),
+      btnManageAddCategory = el("btn-manage-add-category"), btnCloseManageCategories = el("btn-close-manage-categories");
+const manageDifficultyListEl = el("manage-difficulty-list"), inputManageNewDifficulty = el("input-manage-new-difficulty"),
+      btnManageAddDifficulty = el("btn-manage-add-difficulty");
 const btnUploadClip = el("btn-upload-clip"), inputUploadClip = el("input-upload-clip"),
       btnExportAllClips = el("btn-export-all-clips");
 
@@ -1201,6 +1279,8 @@ function startTimer(){
       stopTimer();
       state.timeExpired = true;
       expiredBanner.style.display = "flex";
+      btnPlayClip.disabled = true;
+      btnRecord.disabled = true;
       playCountdownCue(0);
     } else {
       updateTimerUI();
@@ -1247,6 +1327,12 @@ function resetRoundUI(){
   state.revealed = false;
   revealAnswerBox.style.display = "none";
   setReelMode("idle");
+  // a team scored or the round was skipped — clear the timeout lock so
+  // Play Reversed Clip / Record Mimicry work again for the next round
+  state.timeExpired = false;
+  expiredBanner.style.display = "none";
+  btnPlayClip.disabled = false;
+  btnRecord.disabled = false;
 }
 
 function startNewRound(){
@@ -1450,6 +1536,46 @@ function celebrateWin(){
   playCelebrationChime();
 }
 
+/* ---- post-win overlay — once a team hits the win target, the Play tab
+   is dimmed and locked behind a "Start New Game With Current Teams?"
+   prompt so nobody accidentally keeps playing the reversed clip mid-
+   celebration. Ignoring it and switching tabs is always allowed. ---- */
+function updateWinOverlay(winner){
+  if (winner){
+    winOverlayTeamNameEl.textContent = winner.name;
+    winOverlayEl.style.display = "flex";
+    playContentEl.classList.add("dimmed");
+    btnPlayClip.disabled = true;
+    btnRecord.disabled = true;
+  } else {
+    winOverlayEl.style.display = "none";
+    playContentEl.classList.remove("dimmed");
+    if (!state.roundActive && !state.timeExpired){
+      btnPlayClip.disabled = false;
+      btnRecord.disabled = false;
+    }
+  }
+}
+
+/* Starts a fresh game right from the win overlay: same team names/count,
+   scores back to 0, and — same as Settings' "Reset for New Game" —
+   shuffleBag is left alone, so already-heard clips stay out of the mix
+   until the pool naturally runs dry and auto-reshuffles. The winning
+   team leads off the next game rather than defaulting back to Team 1. */
+function startNewGameKeepingTeamsAndClips(){
+  const winnerIndex = state.teams.findIndex(t => t.score >= state.settings.pointsToWin);
+  state.teams.forEach(t => t.score = 0);
+  state.performingIndex = winnerIndex >= 0 ? winnerIndex : 0;
+  state.winCelebrated = false;
+  state.winOverlayDismissed = false;
+  persist();
+  updateWinOverlay(null);
+  renderScoreTab();
+  renderAwardGrid();
+  performingLabel.textContent = state.teams[state.performingIndex].name;
+  startNewRound();
+}
+
 /* ===================================================================
    SCORE TAB
 =================================================================== */
@@ -1466,12 +1592,15 @@ function renderScoreTab(){
     winnerSlot.appendChild(w);
     if (!state.winCelebrated){
       state.winCelebrated = true;
+      state.winOverlayDismissed = false;
       celebrateWin();
       recordGameToHistory(winner);
     }
   } else {
     state.winCelebrated = false;
+    state.winOverlayDismissed = false;
   }
+  updateWinOverlay(winner && !state.winOverlayDismissed ? winner : null);
   state.teams.forEach((team, i) => {
     const card = document.createElement("div");
     card.className = "team-card";
@@ -1506,9 +1635,47 @@ const CATEGORIES = [
   { id:"difficult", label:"🟠 Difficult" },
   { id:"insane",    label:"🔴 Insane!" },
 ];
+/* Custom, user-created categories (state.customCategories) sit alongside the
+   4 built-in difficulty levels everywhere a category list is needed — the
+   dropdown when saving a clip, the toggles in Settings, and clip tags. They
+   persist independently (see loadCustomCategories/persistCustomCategories)
+   so they survive "Reset for New Game" and carry over on export/import.
+   Built-in categories the user has deleted via Manage Categories are
+   filtered out here (state.hiddenCategoryIds) but never actually removed
+   from CATEGORIES, so they can be restored later.
+
+   Every entry also carries a "kind" — "genre" (Pop, Holiday, Disney...) or
+   "difficulty" (Easy, Insane, or a custom level like "Legendary") — purely
+   to group them into separate lists in Manage Categories. They still share
+   one flat category id space and one field on each clip; kind is a display
+   grouping, not a second independent dimension. Custom entries saved before
+   this existed have no stored kind and default to "genre". */
+function allCategories(){
+  return CATEGORIES
+    .filter(c => !state.hiddenCategoryIds.includes(c.id))
+    .map(c => ({ id: c.id, label: c.label, kind: "difficulty" }))
+    .concat(state.customCategories.map(c => {
+      const kind = c.kind === "difficulty" ? "difficulty" : "genre";
+      return { id: c.id, label: (kind === "difficulty" ? "🎚️ " : "🏷️ ") + c.label, kind };
+    }));
+}
+function plainLabel(label){
+  return String(label).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, "").trim();
+}
 function categoryLabel(id){
-  const c = CATEGORIES.find(c=>c.id===id);
+  const c = allCategories().find(c=>c.id===id);
   return c ? c.label : "⚪ Unrated";
+}
+function categoryClipCount(id){
+  return state.myClips.filter(c => c.category === id).length;
+}
+/* The Settings → Sound Packs category filter only makes sense once a
+   category actually has clips in it — an empty toggle filters nothing.
+   Freshly-seeded/pre-populated categories stay selectable in the Record
+   tab's save dropdown regardless, and show up here the moment the first
+   clip lands in them. */
+function categoriesWithClips(){
+  return allCategories().filter(c => categoryClipCount(c.id) > 0);
 }
 
 const PACKS = [
@@ -1520,7 +1687,8 @@ function myClipCategoriesAnyOn(){
   return state.settings.activeMyClipCategories.length > 0;
 }
 function myClipCategoriesAllOn(){
-  return CATEGORIES.every(c => state.settings.activeMyClipCategories.includes(c.id));
+  const cats = categoriesWithClips();
+  return cats.length > 0 && cats.every(c => state.settings.activeMyClipCategories.includes(c.id));
 }
 function renderPackList(){
   const wrap = el("pack-list");
@@ -1548,6 +1716,7 @@ function renderPackList(){
 function buildMyClipsPackCard(){
   const anyOn = myClipCategoriesAnyOn();
   const desc = state.myClips.length + " clip" + (state.myClips.length === 1 ? "" : "s") + " you've recorded — no titles shown here";
+  const visibleCats = categoriesWithClips();
   const card = document.createElement("div");
   card.className = "pack-card";
   card.innerHTML =
@@ -1557,12 +1726,14 @@ function buildMyClipsPackCard(){
     '</div>' +
     '<button class="category-dropdown-toggle">Categories <span class="advanced-chevron' + (state.myClipCategoriesExpanded ? " open" : "") + '">▾</span></button>' +
     '<div class="category-dropdown-panel" style="display:' + (state.myClipCategoriesExpanded ? "block" : "none") + ';">' +
-      CATEGORIES.map(c =>
-        '<div class="field-row category-row">' +
-          '<label>' + c.label + '</label>' +
-          '<label class="switch"><input type="checkbox" data-cat="' + c.id + '" aria-label="' + c.label.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, "").trim() + ' clips" ' + (state.settings.activeMyClipCategories.includes(c.id) ? "checked" : "") + '><span class="slider"></span></label>' +
-        '</div>'
-      ).join("") +
+      (visibleCats.length > 0
+        ? visibleCats.map(c =>
+            '<div class="field-row category-row">' +
+              '<label>' + c.label + '</label>' +
+              '<label class="switch"><input type="checkbox" data-cat="' + c.id + '" aria-label="' + plainLabel(c.label) + ' clips" ' + (state.settings.activeMyClipCategories.includes(c.id) ? "checked" : "") + '><span class="slider"></span></label>' +
+            '</div>'
+          ).join("")
+        : '<div class="empty-note">Record a clip to see category filters here.</div>') +
     '</div>';
   card.querySelector(".mine-master-toggle").onclick = toggleMyClipsMaster;
   card.querySelector(".category-dropdown-toggle").onclick = () => {
@@ -1575,7 +1746,7 @@ function buildMyClipsPackCard(){
   return card;
 }
 function toggleMyClipsMaster(){
-  state.settings.activeMyClipCategories = myClipCategoriesAllOn() ? [] : CATEGORIES.map(c => c.id);
+  state.settings.activeMyClipCategories = myClipCategoriesAllOn() ? [] : categoriesWithClips().map(c => c.id);
   state.shuffleBag = [];
   persist();
   renderPackList();
@@ -1659,10 +1830,181 @@ function renderGameHistory(){
    that makes this cross-device with real account-based sharing).
 =================================================================== */
 const MYCLIPS_INDEX_KEY = "reversing:myclips:index:v1";
+const CUSTOM_CATEGORIES_KEY = "reversing:customCategories:v1";
+const HIDDEN_CATEGORIES_KEY = "reversing:hiddenCategories:v1";
 let myClipBufferCache = {}; // id -> decoded reversed AudioBuffer
 
+async function loadCustomCategories(){
+  const rec = await Store.get(CUSTOM_CATEGORIES_KEY);
+  state.customCategories = (rec && Array.isArray(rec.value)) ? rec.value : [];
+}
+async function persistCustomCategories(){
+  await Store.set(CUSTOM_CATEGORIES_KEY, state.customCategories);
+}
+async function loadHiddenCategories(){
+  const rec = await Store.get(HIDDEN_CATEGORIES_KEY);
+  state.hiddenCategoryIds = (rec && Array.isArray(rec.value)) ? rec.value : [];
+}
+async function persistHiddenCategories(){
+  await Store.set(HIDDEN_CATEGORIES_KEY, state.hiddenCategoryIds);
+}
+
+/* Adds (or reuses) a user-created category. Matching against an existing
+   category — built-in or custom — by its plain-text label is intentional:
+   typing "Easy" or re-typing a category you made earlier just selects the
+   existing one instead of creating a near-duplicate. Returns the id to
+   select, or null if the label was empty. */
+function addCustomCategory(rawLabel, kind){
+  kind = kind === "difficulty" ? "difficulty" : "genre";
+  const label = String(rawLabel || "").trim().slice(0, 30);
+  if (!label) return null;
+  const lowerLabel = label.toLowerCase();
+  const existing = allCategories().find(c => plainLabel(c.label).toLowerCase() === lowerLabel);
+  if (existing) return existing.id;
+  let baseId = slugify(label) || "category";
+  let id = baseId, n = 2;
+  while (allCategories().some(c => c.id === id)){ id = baseId + "-" + n; n++; }
+  state.customCategories.push({ id, label, kind });
+  persistCustomCategories();
+  return id;
+}
+
+/* ---- default genre categories — seeded once on a brand-new install so
+   the category list isn't empty on first launch. Runs exactly once ever
+   (tracked by GENRE_SEED_FLAG_KEY): if the user later deletes one via
+   Manage Categories, it stays deleted and won't come back on reload. */
+const DEFAULT_GENRE_CATEGORIES = ["Pop", "Rap/Hip-Hop", "Country", "Rock", "R&B", "Dance/EDM"];
+const GENRE_SEED_FLAG_KEY = "reversing:genreCategoriesSeeded:v1";
+async function seedDefaultGenreCategories(){
+  const flag = await Store.get(GENRE_SEED_FLAG_KEY);
+  if (flag && flag.value) return;
+  DEFAULT_GENRE_CATEGORIES.forEach(label => {
+    const id = addCustomCategory(label, "genre");
+    if (id && !state.settings.activeMyClipCategories.includes(id)){
+      state.settings.activeMyClipCategories.push(id);
+    }
+  });
+  await persist();
+  await Store.set(GENRE_SEED_FLAG_KEY, true);
+}
+
 function renderCategoryOptions(){
-  inputClipCategory.innerHTML = CATEGORIES.map(c => '<option value="'+c.id+'">'+c.label+'</option>').join("");
+  inputClipCategory.innerHTML =
+    allCategories().map(c => '<option value="'+c.id+'">'+c.label+'</option>').join("") +
+    '<option value="__add_new__">➕ Add New Category…</option>';
+}
+function commitNewCategory(){
+  const id = addCustomCategory(inputNewCategoryName.value);
+  if (!id){ inputNewCategoryName.focus(); return; }
+  renderCategoryOptions();
+  inputClipCategory.value = id;
+  newCategoryRow.style.display = "none";
+  inputNewCategoryName.value = "";
+  renderPackList(); // so the new category's toggle shows up in Settings right away
+}
+
+/* ---- Manage Categories modal — delete any category or difficulty level
+   (built-in or custom) and, if clips are tagged with it, reassign them to
+   a fallback so nothing goes silently missing. Built-in difficulty levels
+   are hidden rather than destroyed, so "Restore" can always bring them
+   back. Genres and difficulty levels are just two display groupings of
+   the same underlying list — see the "kind" note on allCategories(). ---- */
+function renderCategoryManageRows(cats){
+  if (cats.length === 0) return '<div class="empty-note">None yet.</div>';
+  return cats.map(c => {
+    const count = categoryClipCount(c.id);
+    return '<div class="myclip-card">' +
+        '<div class="myclip-info">' +
+          '<div class="myclip-title">' + c.label + '</div>' +
+          '<div class="myclip-meta">' + count + ' clip' + (count === 1 ? "" : "s") + '</div>' +
+        '</div>' +
+        '<div class="myclip-actions">' +
+          '<button class="icon-mini-btn danger" data-delcat="' + c.id + '" title="Delete" aria-label="Delete ' + plainLabel(c.label) + '">🗑️</button>' +
+        '</div>' +
+      '</div>';
+  }).join("");
+}
+function renderManageCategoriesModal(){
+  const cats = allCategories();
+  const genreCats = cats.filter(c => c.kind !== "difficulty");
+  const difficultyCats = cats.filter(c => c.kind === "difficulty");
+
+  manageCategoriesListEl.innerHTML = renderCategoryManageRows(genreCats);
+  manageDifficultyListEl.innerHTML = renderCategoryManageRows(difficultyCats);
+
+  [manageCategoriesListEl, manageDifficultyListEl].forEach(container => {
+    container.querySelectorAll("[data-delcat]").forEach(btn => {
+      btn.onclick = () => deleteCategory(btn.dataset.delcat);
+    });
+  });
+
+  if (state.hiddenCategoryIds.length > 0){
+    manageCategoriesRestoreRow.style.display = "block";
+    btnRestoreCategories.textContent = "↩️ Restore " + state.hiddenCategoryIds.length + " hidden default level" + (state.hiddenCategoryIds.length === 1 ? "" : "s");
+  } else {
+    manageCategoriesRestoreRow.style.display = "none";
+  }
+}
+async function deleteCategory(id){
+  const all = allCategories();
+  if (all.length <= 1){
+    alert("You need at least one category — this is the last one.");
+    return;
+  }
+  const cat = all.find(c => c.id === id);
+  if (!cat) return;
+  const affected = state.myClips.filter(c => c.category === id);
+  let msg = 'Delete "' + plainLabel(cat.label) + '"?';
+  if (affected.length > 0){
+    msg += " " + affected.length + " clip" + (affected.length === 1 ? "" : "s") + " tagged with it will move to another category.";
+  }
+  if (!confirm(msg)) return;
+
+  const remaining = all.filter(c => c.id !== id);
+  const fallback = remaining.find(c => c.id === "medium") || remaining[0];
+
+  if (affected.length > 0){
+    state.myClips.forEach(c => { if (c.category === id) c.category = fallback.id; });
+    await persistMyClipsIndex();
+    await refreshMyClipsInLibrary();
+  }
+
+  const isBuiltIn = CATEGORIES.some(c => c.id === id);
+  if (isBuiltIn){
+    if (!state.hiddenCategoryIds.includes(id)) state.hiddenCategoryIds.push(id);
+    await persistHiddenCategories();
+  } else {
+    state.customCategories = state.customCategories.filter(c => c.id !== id);
+    await persistCustomCategories();
+  }
+
+  const idx = state.settings.activeMyClipCategories.indexOf(id);
+  if (idx >= 0) state.settings.activeMyClipCategories.splice(idx, 1);
+  if (affected.length > 0 && !state.settings.activeMyClipCategories.includes(fallback.id)){
+    state.settings.activeMyClipCategories.push(fallback.id); // keep the reassigned clips playable
+  }
+  await persist();
+
+  state.shuffleBag = [];
+  clipTotalEl.textContent = activeClipPool().length;
+  renderManageCategoriesModal();
+  renderCategoryOptions();
+  renderPackList();
+  renderMyClipsSection();
+}
+function restoreDefaultCategories(){
+  if (state.hiddenCategoryIds.length === 0) return;
+  state.hiddenCategoryIds = [];
+  persistHiddenCategories();
+  CATEGORIES.forEach(c => {
+    if (!state.settings.activeMyClipCategories.includes(c.id)) state.settings.activeMyClipCategories.push(c.id);
+  });
+  persist();
+  state.shuffleBag = [];
+  clipTotalEl.textContent = activeClipPool().length;
+  renderManageCategoriesModal();
+  renderCategoryOptions();
+  renderPackList();
 }
 
 async function loadMyClips(){
@@ -1725,6 +2067,8 @@ async function startClipRecording(){
         state.pendingRecording = { forward, reversed };
         inputClipTitle.value = "";
         inputClipVisibility.checked = false;
+        inputClipCategory.value = CATEGORIES[0].id;
+        newCategoryRow.style.display = "none";
         recordPreviewCard.style.display = "block";
       } catch(err){
         recordMicBanner.textContent = "⚠️ Could not process that recording — please try again.";
@@ -1759,7 +2103,8 @@ function discardPendingRecording(){
 async function savePendingRecording(){
   if (!state.pendingRecording) return;
   const title = inputClipTitle.value.trim() || ("Untitled Clip " + (state.myClips.length + 1));
-  const category = inputClipCategory.value || CATEGORIES[CATEGORIES.length-1].id;
+  let category = inputClipCategory.value || CATEGORIES[CATEGORIES.length-1].id;
+  if (category === "__add_new__") category = CATEGORIES[CATEGORIES.length-1].id; // never got committed — fall back
   const visibility = inputClipVisibility.checked ? "shared" : "private";
   const id = "clip-" + Date.now() + "-" + Math.random().toString(36).slice(2,7);
   const wavBlob = bufferToWav(state.pendingRecording.reversed);
@@ -1818,7 +2163,9 @@ function slugify(str){
 function clipToPackage(meta, audioBase64){
   return {
     type: CLIP_PACKAGE_TYPE, version: 1,
-    title: meta.title, category: meta.category, visibility: meta.visibility,
+    title: meta.title, category: meta.category,
+    categoryLabel: plainLabel(categoryLabel(meta.category)), // lets custom categories round-trip by name, not just id
+    visibility: meta.visibility,
     createdAt: meta.createdAt, audioWavBase64: audioBase64,
   };
 }
@@ -1860,7 +2207,17 @@ async function importClipPackage(item){
     const id = "clip-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7);
     await Store.set("reversing:myclip-audio:" + id, item.audioWavBase64);
     myClipBufferCache[id] = buf;
-    const category = CATEGORIES.some(c => c.id === item.category) ? item.category : "medium";
+    let category;
+    if (allCategories().some(c => c.id === item.category)){
+      category = item.category;
+    } else if (item.categoryLabel){
+      // unknown category id from another device/app — register it locally by
+      // name so it shows up as its own toggle instead of silently collapsing
+      // into an unrelated built-in category
+      category = addCustomCategory(item.categoryLabel) || "medium";
+    } else {
+      category = "medium";
+    }
     const visibility = item.visibility === "shared" ? "shared" : "private";
     state.myClips.push({
       id, title: String(item.title || "Imported Clip").slice(0, 60),
@@ -1901,6 +2258,7 @@ async function handleUploadedFile(file){
     state.shuffleBag = [];
     clipTotalEl.textContent = activeClipPool().length;
     renderMyClipsSection();
+    renderCategoryOptions();
     renderPackList();
     const failed = items.length - ok;
     recordMicBanner.textContent = "✅ Imported " + ok + " clip" + (ok === 1 ? "" : "s") + "." + (failed ? " (" + failed + " couldn't be read.)" : "");
@@ -1921,6 +2279,8 @@ async function handleUploadedFile(file){
     state.pendingRecording = { forward, reversed };
     inputClipTitle.value = file.name.replace(/\.[^./\\]+$/, "").slice(0, 60);
     inputClipVisibility.checked = false;
+    inputClipCategory.value = CATEGORIES[0].id;
+    newCategoryRow.style.display = "none";
     recordPreviewCard.style.display = "block";
     if (wasTrimmed){
       recordMicBanner.textContent = "ℹ️ That file was longer than " + MAX_UPLOAD_SECONDS + "s — only the first " + MAX_UPLOAD_SECONDS + " seconds were used.";
@@ -2068,7 +2428,9 @@ const HELP_CONTENT = {
     body:
       '<p><b>Naming matters most.</b> Whatever you type as the title is exactly what shows up when someone taps <b>Reveal Answer</b> mid-game — so name each clip clearly and accurately (the real song or phrase), not a joke or placeholder. A vague title ruins the reveal.</p>' +
       '<p><b>Recording vs. uploading.</b> Record live for a quick ~5 second clip, or tap <b>Upload Audio or Clip File</b> to use an existing audio file instead — it gets reversed the same way. You can also re-import a file this app previously exported; it comes back exactly as it was, no retyping needed.</p>' +
-      '<p><b>Picking a difficulty.</b> After recording or uploading, listen to the <b>reversed</b> version yourself and use your own judgment: still sounds fairly guessable? Mark it Easy. Nearly unrecognizable gibberish? Insane! Medium and Difficult fall in between — there\'s no wrong answer, it\'s just a hint for whoever plays it.</p>',
+      '<p><b>Picking a difficulty.</b> After recording or uploading, listen to the <b>reversed</b> version yourself and use your own judgment: still sounds fairly guessable? Mark it Easy. Nearly unrecognizable gibberish? Insane! Medium and Difficult fall in between — there\'s no wrong answer, it\'s just a hint for whoever plays it.</p>' +
+      '<p><b>Categories.</b> The dropdown includes Easy/Medium/Difficult/Insane plus any of your own categories (like "Disney" or "80s"). Pick <b>+ Add New Category</b> to create one — it\'s remembered for next time and shows up as its own toggle in Settings → Sound Packs. Categories travel with a clip when you export or share it, so they show up correctly for whoever imports it too.</p>' +
+      '<p><b>Manage Categories.</b> Tap 🏷️ Manage Categories above to delete ones you don\'t use, or add new Difficulty Levels (like "Legendary") alongside new Categories (like "Holiday"). Deleting a built-in Easy/Medium/Difficult/Insane level just hides it — it can be restored anytime — and any clips using a deleted category or level move to another one automatically, never lost.</p>',
   },
   settings: {
     title: "Settings",
@@ -2131,12 +2493,25 @@ btnRecord.onclick = toggleRecording;
 btnPlayMimicry.onclick = playMimicryReversed;
 btnReveal.onclick = revealAnswer;
 btnSkip.onclick = skipRound;
+btnPlayAnotherRound.onclick = startNewGameKeepingTeamsAndClips;
 
 btnRecordClip.onclick = toggleClipRecording;
 btnPreviewForward.onclick = () => { if (state.pendingRecording) playBuffer(state.pendingRecording.forward); };
 btnPreviewReversed.onclick = () => { if (state.pendingRecording) playBuffer(state.pendingRecording.reversed); };
 btnDiscardClip.onclick = discardPendingRecording;
 btnSaveClip.onclick = savePendingRecording;
+
+inputClipCategory.onchange = () => {
+  if (inputClipCategory.value === "__add_new__"){
+    newCategoryRow.style.display = "flex";
+    inputNewCategoryName.value = "";
+    inputNewCategoryName.focus();
+  } else {
+    newCategoryRow.style.display = "none";
+  }
+};
+btnAddCategory.onclick = commitNewCategory;
+inputNewCategoryName.onkeydown = (e) => { if (e.key === "Enter"){ e.preventDefault(); commitNewCategory(); } };
 
 btnUploadClip.onclick = () => inputUploadClip.click();
 inputUploadClip.onchange = async (e) => {
@@ -2156,6 +2531,36 @@ el("btn-help").onclick = () => {
 };
 el("btn-close-help").onclick = () => el("help-modal").classList.remove("show");
 el("help-modal").onclick = (e) => { if (e.target.id === "help-modal") el("help-modal").classList.remove("show"); };
+
+btnManageCategories.onclick = () => {
+  renderManageCategoriesModal();
+  inputManageNewCategory.value = "";
+  inputManageNewDifficulty.value = "";
+  manageCategoriesModal.classList.add("show");
+};
+btnCloseManageCategories.onclick = () => manageCategoriesModal.classList.remove("show");
+manageCategoriesModal.onclick = (e) => { if (e.target.id === "manage-categories-modal") manageCategoriesModal.classList.remove("show"); };
+btnRestoreCategories.onclick = restoreDefaultCategories;
+function commitManageNewCategory(){
+  const id = addCustomCategory(inputManageNewCategory.value, "genre");
+  if (!id){ inputManageNewCategory.focus(); return; }
+  inputManageNewCategory.value = "";
+  renderManageCategoriesModal();
+  renderCategoryOptions();
+  renderPackList();
+}
+btnManageAddCategory.onclick = commitManageNewCategory;
+inputManageNewCategory.onkeydown = (e) => { if (e.key === "Enter"){ e.preventDefault(); commitManageNewCategory(); } };
+function commitManageNewDifficulty(){
+  const id = addCustomCategory(inputManageNewDifficulty.value, "difficulty");
+  if (!id){ inputManageNewDifficulty.focus(); return; }
+  inputManageNewDifficulty.value = "";
+  renderManageCategoriesModal();
+  renderCategoryOptions();
+  renderPackList();
+}
+btnManageAddDifficulty.onclick = commitManageNewDifficulty;
+inputManageNewDifficulty.onkeydown = (e) => { if (e.key === "Enter"){ e.preventDefault(); commitManageNewDifficulty(); } };
 
 function finishSetup(){
   el("setup-modal").classList.remove("show");
@@ -2210,10 +2615,15 @@ el("btn-clear-history").onclick = () => {
   renderGameHistory();
 };
 function resetSettingsAndTeams(){
+  const preservedCategories = state.settings.activeMyClipCategories.slice();
   state.settings = JSON.parse(JSON.stringify(DEFAULTS.settings));
+  state.settings.activeMyClipCategories = preservedCategories; // keep category on/off choices exactly as the user left them
   state.teams = JSON.parse(JSON.stringify(DEFAULTS.teams));
   state.performingIndex = 0;
-  state.shuffleBag = [];
+  // shuffleBag is intentionally left alone here — a new game with fresh
+  // players should keep drawing from clips nobody's heard yet, not replay
+  // ones already used this session. It only clears when every active clip
+  // has been drawn (auto-refill in drawNextClip) or via Reset All Data below.
   applyTheme();
   persist();
   renderSettingsTab();
@@ -2235,6 +2645,7 @@ async function wipeAllClipsAndHistory(){
   }
   state.myClips = [];
   myClipBufferCache = {};
+  state.shuffleBag = []; // clip pool composition changed — old indices no longer line up
   await persistMyClipsIndex();
   await refreshMyClipsInLibrary();
   state.gameHistory = [];
@@ -2288,6 +2699,9 @@ async function seedTempPlaytestClips(){
 async function init(){
   await restore();
   applyTheme();
+  await loadCustomCategories();
+  await loadHiddenCategories();
+  await seedDefaultGenreCategories();
   await loadMyClips();
   await seedTempPlaytestClips();
   await refreshMyClipsInLibrary();
